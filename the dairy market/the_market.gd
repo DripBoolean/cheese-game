@@ -1,24 +1,45 @@
 class_name Market extends Node3D
 
+@export var The_Farmers : Farmers = null
+
 @export var Demand = 0
 
 ##per Milk
-@export var base_price = 1
 @onready var Current_Price = 1
 
-@export var price_scaling = 1
 
 
-func demand_to_price():
-	var price = log(50) - log(2*Demand)
+func ratio_to_price_modulation(ratio : float)-> float:
+	
+	var modulation :float = log(ratio)/2 + 1
+	
+	return modulation
+
+func modulation_to_demand_change(modulation : float) -> float:
+	
+	var demand_change : float = log(50) - log(5*modulation)
+	
+	return demand_change
 	
 func determine_price_of_milk():
+	
+	var demand_to_supply_ratio = Demand / The_Farmers.Supply
+	
+	var demand_modulation : float = ratio_to_price_modulation(demand_to_supply_ratio)
+	
+	var demand_change : float = modulation_to_demand_change(demand_modulation)
+	
+	#CUrrent
 	"""
 	1. Take the Demand
 	
 	2. Take the Current Supply
 	
 	3. Figure this garbage out
+	
+	make an equation that modulates the current price by the  factor generated below
+	
+	the lowr supply is than demand, the lower the price goes
 	
 		lower demand than supply -> price decreases 
 		
@@ -29,6 +50,8 @@ func determine_price_of_milk():
 		higher demand than supply -> price increases
 		
 			effects: this increase the price, which decreases the demand
+	
+	these changes will affect demand slightly
 	"""
 
 # Called when the node enters the scene tree for the first time.

@@ -3,16 +3,16 @@ class_name Farmers extends Node3D
 @export var Money = 100
 @export var Milk_Supply = 10
 
-@export var farms = 0
+@export var farms = 2
 @export var farm_value = 0
 @export var employees_per_farm = 0
 @export var farm_maintenance = 0
 
-@export var cows = 0
+@export var cows = 10
 @export var cow_purchase_value = 0
 @export var cow_maintenance = 0
 
-@export var factories = 0
+@export var factories = 1
 @export var factory_value = 0
 @export var exployees_per_factory = 0
 @export var factory_maintenance = 0
@@ -25,6 +25,10 @@ class_name Farmers extends Node3D
 
 @export var grid_height = 2
 @export var grid_width = 2
+
+###----------------------------
+##VVVVV actual variables VVVVV
+###----------------------------
 
 var Expenses = 0
 var Profit = 0
@@ -46,6 +50,7 @@ func _ready() -> void:
 	for i in range(factories):
 		pass
 
+#func 
 func place_cow(farm_to_place_cow_in : Node3D):
 	pass
 
@@ -98,7 +103,6 @@ func go_to_market():
 	"""
 
 func update_finances():
-	
 	"""
 	1. update current expenses with maintinance costs
 	"""
@@ -119,7 +123,10 @@ func update_finances():
 	5. reset expenses or profit for next update
 	"""
 
-func _on_update_time_timeout() -> void:
+func _on_decision_time_timeout() -> void:
+	decide_what_to_do()
+
+func _on_update_finances_time_timeout() -> void:
 	go_to_market()
 	update_finances()
 	decide_what_to_do()
