@@ -6,4 +6,5 @@
 script = ExtResource("1_flp6a")
 
 [node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.693716, 0.720249, 0, -0.720249, 0.693716, 0, 0, 0)
 current = true

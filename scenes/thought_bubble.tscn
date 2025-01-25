@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtojj1g4ud6hy"]
+
+[ext_resource type="Script" path="res://scenes/thought_bubble.gd" id="1_e5ivt"]
+
+[node name="ThoughtBubble" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_e5ivt")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 127.0
+offset_bottom = 125.0
+
+[node name="Yes" type="Button" parent="."]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 64.0
+offset_right = 58.0
+offset_bottom = 95.0
+text = "👍"
+
+[node name="No" type="Button" parent="."]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 65.0
+offset_right = 99.0
+offset_bottom = 96.0
+text = "👎"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 19.0
+offset_right = 111.0
+offset_bottom = 56.0
+text = "Placeholder"

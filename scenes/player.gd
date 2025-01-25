@@ -7,7 +7,6 @@ const SCROLL_SPEED = 1.0
 func _ready():
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var input_dir2 := Input.get_vector("move_left", "move_right", "move_up", "move_down")
