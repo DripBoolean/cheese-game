@@ -5,7 +5,6 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_yk3mt"]
 
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("1_4cdgt")
 
 [node name="Camera3D" type="Camera3D" parent="."]
@@ -13,5 +12,4 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 current = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("SphereShape3D_yk3mt")

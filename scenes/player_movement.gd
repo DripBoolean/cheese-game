@@ -19,9 +19,8 @@ func _physics_process(delta: float) -> void:
 	
 	#scrolling
 	if Input.is_action_just_pressed("zoom_in"):
-		global_position += -camera_ref.global_basis.z * SCROLL_SPEED
+		move_and_collide(-camera_ref.global_basis.z * SCROLL_SPEED)
 	if Input.is_action_just_pressed("zoom_out"):
-		global_position += camera_ref.global_basis.z * SCROLL_SPEED
-	
+		move_and_collide(camera_ref.global_basis.z * SCROLL_SPEED)
 
 	move_and_slide()
