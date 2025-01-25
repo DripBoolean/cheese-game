@@ -18,7 +18,7 @@ var state_machine := { ["START", true] : "Money_over", ["START", false] : "Money
 ["Cave_overD", true] : "P_overG", ["Cave_overD", false] : "P_underG",
 ["Cave_underD", true] : "P_overH", ["Cave_underD", false] : "P_underH",} 
 
-var money: float = 500_000_000.0
+var money: float = 50_000_000.0
 var politcal_points: float = 0.0
 var cheese: int = 0
 @export var cheese_max: int = 100
@@ -27,6 +27,11 @@ var cave_cheese: int = 0
 var cur_state = null
 
 var verbose: bool = true
+
+
+# TEST VARIABLES THAT WILL BE EXPORTED LATER
+var demand: float = 0.99
+var panic: float = 0.1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,10 +44,146 @@ func _process(delta: float) -> void:
 	var scorer2: bool = cheese/cheese_max >= 0.75
 	var scorer3: bool = cave_cheese > 1
 	var scorer4: bool = politcal_points >= 50.0
-	var scores := [scorer1, scorer2, scorer3, scorer4]
+	var scores := [scorer4, scorer1, scorer2, scorer3]
+	
+	var fAskMoney: bool = false
+	var fSellCheese: bool = false
+	var cBuyCheese: bool = false
+	var cAskMoney: bool = false
+	var sBuyCheese: bool = false
+	var sAskMoney: bool = false
+	
+	var fAM_range: float = 0.0
+	var fSC_range: float = 0.0
+	var cBC_range: float = 0.0
+	var cAM_range: float = 0.0
+	var sBC_range: float = 0.0
+	var sAM_range: float = 0.0
 	
 	for i in range( len(scores) ):
 		cur_state = state_machine.get( [ cur_state, scores[i] ] )
+		
+	match cur_state:
+		"P_overA": # GOOD P, GOOD M, HIGH CH, HIGH CA
+			fAM_range = 0.8
+			fSC_range = 0.8
+			cBC_range = 0.2
+			cAM_range = 0.8
+			sBC_range = 0.1
+			sAM_range = 0.5
+		"P_underA": # GOOD P, GOOD M, HIGH CH, LOW CA
+			fAM_range = 0.6
+			fSC_range = 0.9
+			cBC_range = 0.3
+			cAM_range = 0.6
+			sBC_range = 0.1
+			sAM_range = 0.45
+		"P_overB": # GOOD P, GOOD M, LOW CH, HIGH CA
+			fAM_range = 0.75
+			fSC_range = 0.95
+			cBC_range = 0.9
+			cAM_range = 0.01
+			sBC_range = 0.5
+			sAM_range = 0.01
+		"P_underB": # GOOD P, GOOD M, LOW CH, LOW CA
+			fAM_range = 0.9
+			fSC_range = 0.95
+			cBC_range = 0.8
+			cAM_range = 0.8
+			sBC_range = 0.5
+			sAM_range = 0.5
+		"P_overC": # GOOD P, BAD M, HIGH CH, HIGH CA
+			fAM_range = 0.7
+			fSC_range = 0.8
+			cBC_range = 0.2
+			cAM_range = 0.7
+			sBC_range = 0.1
+			sAM_range = 0.5
+		"P_underC": # GOOD P, BAD M, HIGH CH, LOW CA
+			fAM_range = 0.15
+			fSC_range = 0.5
+			cBC_range = 0.9
+			cAM_range = 0.1
+			sBC_range = 0.9
+			sAM_range = 0.01
+		"P_overD": # GOOD P, BAD M, LOW CH, HIGH CA
+			fAM_range = 0.3
+			fSC_range = 0.3
+			cBC_range = 0.9
+			cAM_range = 0.5
+			sBC_range = 0.9
+			sAM_range = 0.5
+		"P_underD": # GOOD P, BAD M, LOW CH, LOW CA
+			fAM_range = 0.4
+			fSC_range = 0.5
+			cBC_range = 0.9
+			cAM_range = 0.6
+			sBC_range = 0.8
+			sAM_range = 0.3
+		"P_overE": # BAD P, GOOD M, HIGH CH, HIGH CA (COMMON)
+			fAM_range = 0.95
+			fSC_range = 0.95
+			cBC_range = 0.3
+			cAM_range = 0.9
+			sBC_range = 0.1
+			sAM_range = 0.8
+		"P_underE": # BAD P, GOOD M, HIGH CHEESE, LOW CAVE (UNCOMMON)
+			fAM_range = 0.35
+			fSC_range = 0.95
+			cBC_range = 0.8
+			cAM_range = 0.6
+			sBC_range = 0.7
+			sAM_range = 0.44
+		"P_overF": # BAD POLITICS, GOOD MONEY, LOW CHEESE, HIGH CAVE CHEESE (RARE)
+			fAM_range = 0.7
+			fSC_range = 0.7
+			cBC_range = 0.5
+			cAM_range = 0.5
+			sBC_range = 0.2
+			sAM_range = 0.4
+		"P_underF": # GAME START
+			fAM_range = 0.75
+			fSC_range = 0.9
+			cBC_range = 0.9
+			cAM_range = 0.2
+			sBC_range = 0.6
+			sAM_range = 0.1
+		"P_overG": # BAD P, BAD M, HIGH CH, HIGH CA
+			fAM_range = 0.9
+			fSC_range = 0.9
+			cBC_range = 0.2
+			cAM_range = 0.9
+			sBC_range = 0.1
+			sAM_range = 0.8
+		"P_underG": # BAD P, BAD M, HIGH CH, LOW CA
+			fAM_range = 0.8
+			fSC_range = 0.9
+			cBC_range = 0.4
+			cAM_range = 0.5
+			sBC_range = 0.4
+			sAM_range = 0.25
+		"P_overH": # BAD P, BAD M, LOW CH, HIGH CA
+			fAM_range = 0.5
+			fSC_range = 0.9
+			cBC_range = 0.6
+			cAM_range = 0.5
+			sBC_range = 0.6
+			sAM_range = 0.15
+		"P_underH": # BAD P, BAD M, LOW CH, LOW CA
+			fAM_range = 0.2
+			fSC_range = 0.99
+			cBC_range = 0.95
+			cAM_range = 0.1
+			sBC_range = 0.9
+			sAM_range = 0.1
+			
+	fAskMoney = randf() < fAM_range + panic
+	fSellCheese = randf() < fSC_range
+	cBuyCheese = randf() < ( cBC_range - (cBC_range * ( 1 - demand) ) )
+	cAskMoney = randf() < cAM_range
+	sBuyCheese = randf() < ( sBC_range - (sBC_range * ( 1 - demand) ) )
+	sAskMoney = randf() < sAM_range
 	if verbose:
 		print(cur_state)
+		print([fAskMoney,fSellCheese,cBuyCheese,cAskMoney,sBuyCheese,sAskMoney])
 		verbose = false
