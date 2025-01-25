@@ -1,14 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://co5d7ar3kc1h4"]
+[gd_scene load_steps=5 format=3 uid="uid://co5d7ar3kc1h4"]
 
 [ext_resource type="Script" path="res://the dairy market/the_farmers.gd" id="1_a0s0j"]
+[ext_resource type="PackedScene" uid="uid://bq3qvhfia16yh" path="res://the dairy market/Farm.tscn" id="2_jaqqv"]
+[ext_resource type="PackedScene" uid="uid://dftv0nxgwjhqy" path="res://the dairy market/Cow.tscn" id="3_2iqoe"]
+[ext_resource type="PackedScene" uid="uid://bnavt5oscw073" path="res://the dairy market/Factory.tscn" id="4_15f4r"]
 
 [node name="TheFarmers" type="Node3D"]
 script = ExtResource("1_a0s0j")
+farm_scene = ExtResource("2_jaqqv")
+cow_scene = ExtResource("3_2iqoe")
+factory_scene = ExtResource("4_15f4r")
 
 [node name="update_finances_time" type="Timer" parent="."]
 autostart = true
 
 [node name="decision_time" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
 
 [connection signal="timeout" from="update_finances_time" to="." method="_on_update_finances_time_timeout"]
 [connection signal="timeout" from="decision_time" to="." method="_on_decision_time_timeout"]

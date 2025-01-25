@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://bnavt5oscw073"]
+[gd_scene load_steps=2 format=3 uid="uid://bnavt5oscw073"]
+
+[ext_resource type="Script" path="res://the dairy market/factory.gd" id="1_322b5"]
 
 [node name="Factory" type="Node3D"]
+script = ExtResource("1_322b5")

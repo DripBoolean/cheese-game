@@ -4,3 +4,14 @@
 
 [node name="TheMarket" type="Node3D"]
 script = ExtResource("1_46lwk")
+
+[node name="Market_Update_Time" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Investment_Update" type="Timer" parent="."]
+wait_time = 12.0
+autostart = true
+
+[connection signal="timeout" from="Market_Update_Time" to="." method="_on_market_update_time_timeout"]
+[connection signal="timeout" from="Investment_Update" to="." method="_on_investment_update_timeout"]
