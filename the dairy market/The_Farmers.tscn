@@ -5,7 +5,10 @@
 [node name="TheFarmers" type="Node3D"]
 script = ExtResource("1_a0s0j")
 
-[node name="update_time" type="Timer" parent="."]
+[node name="update_finances_time" type="Timer" parent="."]
 autostart = true
 
-[connection signal="timeout" from="update_time" to="." method="_on_update_time_timeout"]
+[node name="decision_time" type="Timer" parent="."]
+
+[connection signal="timeout" from="update_finances_time" to="." method="_on_update_finances_time_timeout"]
+[connection signal="timeout" from="decision_time" to="." method="_on_decision_time_timeout"]
