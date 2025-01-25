@@ -13,29 +13,29 @@ script = ExtResource("1_e5ivt")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
+offset_top = -125.0
 offset_right = 127.0
-offset_bottom = 125.0
 
 [node name="Yes" type="Button" parent="."]
 layout_mode = 0
 offset_left = 28.0
-offset_top = 64.0
+offset_top = -61.0
 offset_right = 58.0
-offset_bottom = 95.0
+offset_bottom = -30.0
 text = "👍"
 
 [node name="No" type="Button" parent="."]
 layout_mode = 0
 offset_left = 69.0
-offset_top = 65.0
+offset_top = -60.0
 offset_right = 99.0
-offset_bottom = 96.0
+offset_bottom = -29.0
 text = "👎"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 19.0
-offset_top = 19.0
+offset_top = -106.0
 offset_right = 111.0
-offset_bottom = 56.0
+offset_bottom = -69.0
 text = "Placeholder"

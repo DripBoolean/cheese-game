@@ -4,10 +4,19 @@ extends Node3D
 var type = "Office"
 var in_good_form = true
 
+var bubble = null
+
+func have_thought():
+	var new_bubble = load("res://scenes/thought_bubble.tscn").instantiate()
+	
+	bubble = new_bubble
+	add_child(new_bubble)
+
 func _ready():
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if bubble != null:
+		bubble.position = get_viewport().get_camera_3d().unproject_position(position)
