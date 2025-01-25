@@ -8,4 +8,4 @@
 [node name="Map" parent="." instance=ExtResource("1_lffpv")]
 
 [node name="Player" parent="." instance=ExtResource("2_h880m")]
-transform = Transform3D(1, 0, 0, 0, 0.783477, 0.621421, 0, -0.621421, 0.783477, 2.70504, 7.48663, 4.49905)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.70504, 7.48663, 4.49905)
