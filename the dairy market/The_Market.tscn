@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ce6snh3sed8s"]
+
+[ext_resource type="Script" path="res://the dairy market/the_market.gd" id="1_46lwk"]
+
+[node name="TheMarket" type="Node3D"]
+script = ExtResource("1_46lwk")
