@@ -1,9 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://u5yt3wfkusk4"]
+[gd_scene load_steps=3 format=3 uid="uid://u5yt3wfkusk4"]
+
+[ext_resource type="Script" path="res://scenes/map.gd" id="1_y30s5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_35lqr"]
 
 [node name="Map" type="Node3D"]
+script = ExtResource("1_y30s5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("PlaneMesh_35lqr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.850141, -0.345514, 0.397342, 0, 0.754606, 0.656178, -0.526555, -0.557843, 0.641522, 0, 0, 0)
