@@ -32,11 +32,21 @@ var verbose: bool = true
 # TEST VARIABLES THAT WILL BE EXPORTED LATER
 var demand: float = 0.99
 var panic: float = 0.1
+var mania: bool = false
+var lactose: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	cur_state = "START"
 
+func _random_events( weight_array ) -> String:
+	
+	var events := ["mad","lactose","mania","socialist","facebook","exodus","enterance","crime"]
+	var random := RandomNumberGenerator.new()
+	if randf() < 0.1:
+		return events[random.rand_weighted(weight_array)]
+	else:
+		return "null"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -45,6 +55,8 @@ func _process(delta: float) -> void:
 	var scorer3: bool = cave_cheese > 1
 	var scorer4: bool = politcal_points >= 50.0
 	var scores := [scorer4, scorer1, scorer2, scorer3]
+	
+	var r_event: String = "null"
 	
 	var fAskMoney: bool = false
 	var fSellCheese: bool = false
@@ -71,6 +83,7 @@ func _process(delta: float) -> void:
 			cAM_range = 0.8
 			sBC_range = 0.1
 			sAM_range = 0.5
+			r_event = _random_events([1,1+int(lactose),1+int(mania),0.5,0.3,1,1,0.2])
 		"P_underA": # GOOD P, GOOD M, HIGH CH, LOW CA
 			fAM_range = 0.6
 			fSC_range = 0.9
@@ -78,6 +91,7 @@ func _process(delta: float) -> void:
 			cAM_range = 0.6
 			sBC_range = 0.1
 			sAM_range = 0.45
+			r_event = _random_events([1,1.1+int(lactose),1+int(mania),0.5,0.3,1,1,0.2])
 		"P_overB": # GOOD P, GOOD M, LOW CH, HIGH CA
 			fAM_range = 0.75
 			fSC_range = 0.95
@@ -85,6 +99,7 @@ func _process(delta: float) -> void:
 			cAM_range = 0.01
 			sBC_range = 0.5
 			sAM_range = 0.01
+			r_event = _random_events([1,1.1+int(lactose),1+int(mania),0.5,0.3,1,1,0.2])
 		"P_underB": # GOOD P, GOOD M, LOW CH, LOW CA
 			fAM_range = 0.9
 			fSC_range = 0.95
@@ -92,6 +107,7 @@ func _process(delta: float) -> void:
 			cAM_range = 0.8
 			sBC_range = 0.5
 			sAM_range = 0.5
+			r_event = _random_events([1,1+int(lactose),1+int(mania),0.5,0.3,1,1,0.2])
 		"P_overC": # GOOD P, BAD M, HIGH CH, HIGH CA
 			fAM_range = 0.7
 			fSC_range = 0.8
@@ -99,6 +115,7 @@ func _process(delta: float) -> void:
 			cAM_range = 0.7
 			sBC_range = 0.1
 			sAM_range = 0.5
+			r_event = _random_events([1,1+int(lactose),1+int(mania),0.5,0.3,1,1,0.2])
 		"P_underC": # GOOD P, BAD M, HIGH CH, LOW CA
 			fAM_range = 0.15
 			fSC_range = 0.5
@@ -106,6 +123,7 @@ func _process(delta: float) -> void:
 			cAM_range = 0.1
 			sBC_range = 0.9
 			sAM_range = 0.01
+			r_event = _random_events([1,1+int(lactose),1+int(mania),0.5,0.3,1,1,0.2])
 		"P_overD": # GOOD P, BAD M, LOW CH, HIGH CA
 			fAM_range = 0.3
 			fSC_range = 0.3
@@ -113,6 +131,7 @@ func _process(delta: float) -> void:
 			cAM_range = 0.5
 			sBC_range = 0.9
 			sAM_range = 0.5
+			r_event = _random_events([1,1+int(lactose),1+int(mania),0.5,0.3,1,1,0.2])
 		"P_underD": # GOOD P, BAD M, LOW CH, LOW CA
 			fAM_range = 0.4
 			fSC_range = 0.5
@@ -120,6 +139,7 @@ func _process(delta: float) -> void:
 			cAM_range = 0.6
 			sBC_range = 0.8
 			sAM_range = 0.3
+			r_event = _random_events([1,1+int(lactose),1+int(mania),0.5,0.3,1,1,0.2])
 		"P_overE": # BAD P, GOOD M, HIGH CH, HIGH CA (COMMON)
 			fAM_range = 0.95
 			fSC_range = 0.95
@@ -185,5 +205,6 @@ func _process(delta: float) -> void:
 	sAskMoney = randf() < sAM_range
 	if verbose:
 		print(cur_state)
+		print(1.0 + int(true))
 		print([fAskMoney,fSellCheese,cBuyCheese,cAskMoney,sBuyCheese,sAskMoney])
 		verbose = false
