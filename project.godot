@@ -15,6 +15,10 @@ run/main_scene="res://scenes/world_root.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+global="*res://the dairy market/Global.gd"
+
 [input]
 
 move_forward={
