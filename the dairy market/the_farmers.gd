@@ -50,9 +50,9 @@ var Raw_Milk_Supply = 0
 var Raw_Milk_I_Produce = 0
 var Milk_I_Can_Refine = 0
 
-var Goal_Market_Value : float = 5000000
+var Goal_Market_Value : float = 100000000
 
-@export var Base_Time : float = 300
+@export var Base_Time : float = 60
 @onready var time_left : float = Base_Time
 
 @export var Max_Panic = 100
@@ -81,8 +81,7 @@ func _ready() -> void:
 	for i in range(farms):
 		place_building(farm_scene)
 		
-	for i in range(cows):
-		place_cow()
+	place_cow(cows)
 	
 	for i in range(factories):
 		place_building(factory_scene)
@@ -110,16 +109,18 @@ func update_placeable_locations(coord_placed_at : Vector2):
 	
 
 #func 
-func place_cow():
-	print("FARMERS BOUGHT COW")
-	var new_cow = cow_scene.instantiate()
-	for farm in my_farms:
-		if farm.num_cow_slots_available > 0:
-			farm.num_cow_slots_available -= 1
-			farm.add_child(new_cow)
-			new_cow.position = Vector3(randf_range(-tile_width/2.0, tile_width/2.0), 0,
-										randf_range(-tile_height/2.0, tile_height/2.0))
-			break
+func place_cow(number_of_cows):
+	print("FARMERS BOUGHT " + str(number_of_cows) + " COWS")
+	
+	for i in range(number_of_cows):
+		var new_cow = cow_scene.instantiate()
+		for farm in my_farms:
+			if farm.num_cow_slots_available > 0:
+				farm.num_cow_slots_available -= 1
+				farm.add_child(new_cow)
+				new_cow.position = Vector3(randf_range(-tile_width/2.0, tile_width/2.0), 0,
+											randf_range(-tile_height/2.0, tile_height/2.0))
+				break
 	#cows+=1
 
 func buy_something(i_am_panicking : bool = false):
@@ -147,12 +148,11 @@ func buy_something(i_am_panicking : bool = false):
 			#print('b')
 			#buy farms or cows to make up the difference
 			if cows < farms * cows_per_farm:
-				for i in range(randi_range(clamp((farms * cows_per_farm - cows)/2, 1, (farms * cows_per_farm - cows)/2)
-												, farms * cows_per_farm - cows)):
-					global.The_Market.Recent_Farm_Purchases.append(cow_value)
-					global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(cow_value)
-					cows += 1
-					place_cow()
+				var number_of_cows = randi_range(clamp((farms * cows_per_farm - cows)/2, 1, (farms * cows_per_farm - cows)/2), farms * cows_per_farm - cows )
+				global.The_Market.Recent_Farm_Purchases.append(cow_value * number_of_cows)
+				global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(cow_value * number_of_cows)
+				cows += number_of_cows
+				place_cow(number_of_cows)
 			else:
 				#print('c')
 				Money -= farm_value
@@ -208,7 +208,7 @@ func investors_invested(amount : int):
 	"""
 	#var money_change = float(number_of_shares) * global.The_Market.Farmers_Market_Value
 	Money += amount
-	Panic -= (amount / global.The_Market.base_investment_amount) * 15
+	#Panic -= (amount / global.The_Market.base_investment_amount) * 15
 	Panic = clamp(Panic, 0, Max_Panic)
 	
 	
@@ -218,18 +218,21 @@ func ask_for_money(for_building : bool = false):
 	pass
 
 func government_bought_milk(milk_amount : int):
+	print()
 	print("GOVERNMENT BOUGHT CHEESE")
 	print(milk_amount)
+	 
 	global.The_Market.Fake_Demand += milk_amount
 
 func government_gave_subsidy(money_amount : int):
+	print()
 	print("GOVERNMENT GAVE SUBSIDY")
 	Money += money_amount
 	global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(money_amount)
 	global.The_Market.Recent_Changes_in_Farm_Profit.append(money_amount)
 
 func go_to_market():
-	var cur_demand = global.The_Market.Demand
+	var cur_demand = global.The_Market.Demand + global.The_Market.Fake_Demand
 	var prev_supply = Milk_Supply
 	Milk_Supply = clamp(Milk_Supply - cur_demand, 0, Milk_Supply)
 	var actual_change = prev_supply - Milk_Supply
@@ -238,6 +241,8 @@ func go_to_market():
 	Money += money_change
 	print("MILK SOLD: " + str(actual_change))
 	print("MONEY MADE: " + str(money_change))
+	
+	global.The_Market.Farmers_Market_Value += money_change
 	global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(
 			money_change)
 	global.The_Market.Recent_Changes_in_Farm_Profit.append(money_change)
@@ -285,6 +290,7 @@ func take_expenses():
 	global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(expenses)
 	global.The_Market.Recent_Changes_in_Farm_Profit.append(
 			expenses)
+	return expenses
 	
 func decide_what_to_do():
 	print("FARM DECISION")
@@ -357,6 +363,13 @@ func decide_what_to_do():
 		##I have the money I need
 		
 		##No need to panic since I'm already good to go
+		for i in range(randi_range(1, 3)):
+			buy_something()
+		for i in range(randi_range(1, 3)):
+			buy_something()
+		for i in range(randi_range(1, 3)):
+			buy_something()
+				
 		Panic = 0
 
 func _on_decision_time_timeout() -> void:
@@ -369,7 +382,10 @@ func _on_update_finances_time_timeout() -> void:
 	print("FARM UPDATE")
 	go_to_market()
 	produce_milk()
-	take_expenses()
+	var expenses = take_expenses()
+	
+	if Money <= -5000000:
+		get_tree().change_scene_to_file("res://scenes/loss_screen.tscn")
 	print("CURRENT MILK SUPPLY: " + str(Milk_Supply))
 	print("CURRENT FARM MONEY: " + str(Money))
 	#decide_what_to_do()
