@@ -1,0 +1,165 @@
+[gd_scene load_steps=11 format=3 uid="uid://dx06l7kgsioll"]
+
+[ext_resource type="Texture2D" uid="uid://b5fm8otjht2gg" path="res://assets/map_Map.png" id="1_tijph"]
+[ext_resource type="Texture2D" uid="uid://du4nkgfoj1641" path="res://assets/speech_bubble.png" id="2_pdotd"]
+[ext_resource type="FontFile" uid="uid://cx8175b1rg7m6" path="res://assets/fonts/Vintage.ttf" id="3_h5tk8"]
+[ext_resource type="Script" path="res://event_dispatcher/3d_in_2d_menu.gd" id="4_2frsk"]
+[ext_resource type="PackedScene" uid="uid://ccfufiqge3ea1" path="res://scenes/simple_cow.tscn" id="5_hipav"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btbmg"]
+texture = ExtResource("1_tijph")
+modulate_color = Color(0.674815, 0.674815, 0.674815, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m1n6o"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pn232"]
+bg_color = Color(1, 0.776471, 0.223529, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bmni6"]
+bg_color = Color(1, 0.654902, 0.188235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bf832"]
+bg_color = Color(1, 1, 0.94902, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[node name="menu" type="CanvasLayer"]
+
+[node name="main_menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_btbmg")
+
+[node name="SpeechBubble" type="Sprite2D" parent="main_menu"]
+position = Vector2(800.5, 360)
+texture = ExtResource("2_pdotd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 54.5
+offset_top = -185.5
+offset_right = 372.5
+offset_bottom = 3.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_pressed_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_focus_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_color = Color(0.390813, 0.00171066, 0.6607, 1)
+theme_override_fonts/font = ExtResource("3_h5tk8")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m1n6o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pn232")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bmni6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf832")
+text = "Start Game"
+
+[node name="Button2" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_pressed_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_focus_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_color = Color(0.390813, 0.00171066, 0.6607, 1)
+theme_override_fonts/font = ExtResource("3_h5tk8")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m1n6o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pn232")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bmni6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf832")
+text = "Credits"
+
+[node name="Button3" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_pressed_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_focus_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_color = Color(0.390813, 0.00171066, 0.6607, 1)
+theme_override_fonts/font = ExtResource("3_h5tk8")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_m1n6o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pn232")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_bmni6")
+theme_override_styles/normal = SubResource("StyleBoxFlat_bf832")
+text = "Exit"
+
+[node name="Label" type="Label" parent="main_menu"]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 23.0
+offset_right = 366.0
+offset_bottom = 274.0
+theme_override_colors/font_color = Color(0.898039, 0.705882, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 15
+theme_override_fonts/font = ExtResource("3_h5tk8")
+theme_override_font_sizes/font_size = 128
+text = "The Big 
+Cheese
+"
+
+[node name="Label2" type="Label" parent="main_menu"]
+layout_mode = 1
+offset_left = 15.0
+offset_top = 280.0
+offset_right = 447.0
+offset_bottom = 332.0
+theme_override_colors/font_color = Color(1, 0.929803, 0.753884, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_h5tk8")
+theme_override_font_sizes/font_size = 32
+text = "Presented by Cows with Keyboards
+"
+
+[node name="3d_in_2d_menu" type="Node2D" parent="."]
+position = Vector2(481, 557)
+script = ExtResource("4_2frsk")
+
+[node name="screen" type="Sprite2D" parent="3d_in_2d_menu"]
+
+[node name="SubViewport" type="SubViewport" parent="3d_in_2d_menu"]
+transparent_bg = true
+size = Vector2i(1152, 648)
+
+[node name="simple cow" parent="3d_in_2d_menu/SubViewport" instance=ExtResource("5_hipav")]
