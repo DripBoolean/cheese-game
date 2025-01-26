@@ -111,7 +111,7 @@ func investment_in_farmers():
 	
 	if invest_change_num_purchases < 0:
 		invest_change_num_purchases = -1.0 / invest_change_num_purchases
-	#print(invest_change_num_purchases)
+	print(invest_change_num_purchases)
 	
 	invest_change_num_purchases *= weight_of_items_purchased
 	chance_i_invest += invest_change_num_purchases
@@ -122,7 +122,7 @@ func investment_in_farmers():
 	var invest_change_money_spent = clamp(total_farm_purchases / min_change_for_max_happy, 0.5, 2)
 	if invest_change_money_spent < 0:
 		invest_change_money_spent = -1.0 / invest_change_money_spent
-	#print(invest_change_money_spent)
+	print(invest_change_money_spent)
 	invest_change_money_spent *= weight_of_money_spent
 	chance_i_invest += invest_change_money_spent
 	chance_i_sell -= invest_change_money_spent
@@ -136,7 +136,7 @@ func investment_in_farmers():
 	
 	if invest_change_milk < 0:
 		invest_change_milk = -1.0 / invest_change_milk
-	#print(invest_change_milk)
+	print(invest_change_milk)
 	invest_change_milk *= weight_of_milk_value
 	chance_i_invest += invest_change_milk
 	chance_i_sell -= invest_change_milk
@@ -146,7 +146,7 @@ func investment_in_farmers():
 	
 	if invest_change_value < 0:
 		invest_change_value = -1.0 / invest_change_value
-	#print(invest_change_value)
+	print(invest_change_value)
 	invest_change_value *= weight_of_Farmers_Market_Value
 	chance_i_invest += invest_change_value
 	chance_i_sell -= invest_change_value

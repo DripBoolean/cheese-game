@@ -1,15 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://co5d7ar3kc1h4"]
+[gd_scene load_steps=7 format=3 uid="uid://co5d7ar3kc1h4"]
 
 [ext_resource type="Script" path="res://the dairy market/the_farmers.gd" id="1_a0s0j"]
 [ext_resource type="PackedScene" uid="uid://bq3qvhfia16yh" path="res://the dairy market/Farm.tscn" id="2_jaqqv"]
 [ext_resource type="PackedScene" uid="uid://dftv0nxgwjhqy" path="res://the dairy market/Cow.tscn" id="3_2iqoe"]
 [ext_resource type="PackedScene" uid="uid://bnavt5oscw073" path="res://the dairy market/Factory.tscn" id="4_15f4r"]
+[ext_resource type="PackedScene" uid="uid://ddg0sn3jpjrlp" path="res://assets/map.glb" id="5_y1q3j"]
+[ext_resource type="PackedScene" uid="uid://bkp2db2i0gwpg" path="res://assets/farm-house.glb" id="6_7l12i"]
 
 [node name="TheFarmers" type="Node3D"]
 script = ExtResource("1_a0s0j")
 farm_scene = ExtResource("2_jaqqv")
 cow_scene = ExtResource("3_2iqoe")
 factory_scene = ExtResource("4_15f4r")
+tile_height = 22
+tile_width = 22
+grid_height = 8
+grid_width = 4
+farm_location_x = 3
+farm_location_y = 7
 
 [node name="update_finances_time" type="Timer" parent="."]
 autostart = true
@@ -17,6 +25,12 @@ autostart = true
 [node name="decision_time" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="map" parent="." instance=ExtResource("5_y1q3j")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -44.46, -13.2031, -23.9218)
+
+[node name="farm_house" parent="." instance=ExtResource("6_7l12i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44, -2.898, 77)
 
 [connection signal="timeout" from="update_finances_time" to="." method="_on_update_finances_time_timeout"]
 [connection signal="timeout" from="decision_time" to="." method="_on_decision_time_timeout"]

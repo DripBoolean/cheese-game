@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://u5yt3wfkusk4"]
+[gd_scene load_steps=10 format=3 uid="uid://u5yt3wfkusk4"]
 
 [ext_resource type="Script" path="res://scenes/map.gd" id="1_y30s5"]
 [ext_resource type="PackedScene" uid="uid://ce6snh3sed8s" path="res://the dairy market/The_Market.tscn" id="2_uvx7c"]
@@ -7,6 +7,19 @@
 [ext_resource type="PackedScene" uid="uid://co5d7ar3kc1h4" path="res://the dairy market/The_Farmers.tscn" id="5_whmgt"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_35lqr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nthmp"]
+sky_top_color = Color(0.325153, 0.414749, 0.783198, 1)
+sky_horizon_color = Color(0.505204, 0.686189, 0.768097, 1)
+ground_bottom_color = Color(0, 0.531361, 0.402607, 1)
+ground_horizon_color = Color(0.550799, 0.686602, 0.681593, 1)
+
+[sub_resource type="Sky" id="Sky_i4apu"]
+sky_material = SubResource("ProceduralSkyMaterial_nthmp")
+
+[sub_resource type="Environment" id="Environment_bxdme"]
+background_mode = 2
+sky = SubResource("Sky_i4apu")
 
 [node name="Map" type="Node3D"]
 script = ExtResource("1_y30s5")
@@ -22,6 +35,7 @@ mesh = SubResource("PlaneMesh_35lqr")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.850141, -0.345514, 0.397342, 0, 0.754606, 0.656178, -0.526555, -0.557843, 0.641522, 0, 0, 0)
+light_color = Color(1, 1, 0.839216, 1)
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -41,3 +55,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="TheFarmers" parent="." instance=ExtResource("5_whmgt")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_bxdme")

@@ -33,6 +33,9 @@ var employees = 0
 @export var grid_height = 2
 @export var grid_width = 2
 
+@export var farm_location_x = 0
+@export var farm_location_y = 0
+var grid = []
 var possible_placement_locations : Array[Vector2] = []
 
 ###----------------------------
@@ -65,32 +68,58 @@ var my_factories : Array[Factory] = []
 func _ready() -> void:
 	global.The_Farmers = self
 	
+	for x in range(grid_width + 1):
+		var columun = []
+		for y in range(grid_height + 1):
+			columun.append(0)
+		grid.append(columun)
+	
+	grid[farm_location_x][farm_location_y] = 1
+	$farm_house.position = Vector3(farm_location_x * tile_width + tile_width/2 ,0, farm_location_y * tile_height + tile_height/2)
+	update_placeable_locations(Vector2(farm_location_x, farm_location_y))
+	
 	for i in range(farms):
-		var new_farm = farm_scene.instantiate()
-		new_farm.num_cow_slots_available = cows_per_farm
-		add_child(new_farm)
-		my_farms.append(new_farm)
-		employees += employees_per_farm
+		place_building(farm_scene)
 		
 	for i in range(cows):
-		var new_cow = cow_scene.instantiate()
-		add_child(new_cow)
-		my_cows.append(new_cow)
+		place_cow()
 	
 	for i in range(factories):
-		#my_factories.append()
-		var new_factory = factory_scene.instantiate()
-		add_child(new_factory)
-		my_factories.append(new_factory)
-		employees += employees_per_factory
-	
+		place_building(factory_scene)
+
 	Raw_Milk_I_Produce = cows * milk_per_cow
 	Milk_I_Can_Refine = factories * factory_milk_production
 
+func update_placeable_locations(coord_placed_at : Vector2):
+	grid[coord_placed_at.x][coord_placed_at.y] = 1
+	if coord_placed_at.x - 1 >= 0:
+		if grid[coord_placed_at.x - 1][coord_placed_at.y] == 0:
+			possible_placement_locations.append(Vector2(coord_placed_at.x - 1, coord_placed_at.y))
+	
+	if coord_placed_at.x + 1 < grid_width:
+		if grid[coord_placed_at.x + 1][coord_placed_at.y] == 0:
+			possible_placement_locations.append(Vector2(coord_placed_at.x + 1, coord_placed_at.y))
+	
+	if coord_placed_at.y - 1 >= 0:
+		if grid[coord_placed_at.x][coord_placed_at.y - 1] == 0:
+			possible_placement_locations.append(Vector2(coord_placed_at.x, coord_placed_at.y - 1))
+	
+	if coord_placed_at.y + 1 < grid_height:
+		if grid[coord_placed_at.x][coord_placed_at.y + 1] == 0:
+			possible_placement_locations.append(Vector2(coord_placed_at.x, coord_placed_at.y + 1))
+	
+
 #func 
-func place_cow(farm_to_place_cow_in : Node3D):
+func place_cow():
 	print("FARMERS BOUGHT COW")
-	cows+=1
+	var new_cow = cow_scene.instantiate()
+	for farm in my_farms:
+		if farm.num_cow_slots_available > 0:
+			farm.num_cow_slots_available -= 1
+			farm.add_child(new_cow)
+			new_cow.position = Vector3(randf_range(-tile_width/2, tile_width/2), 0,randf_range(-tile_height/2, tile_height/2))
+			break
+	#cows+=1
 
 func buy_something(i_am_panicking : bool = false):
 	if not i_am_panicking:
@@ -102,6 +131,7 @@ func buy_something(i_am_panicking : bool = false):
 		#buy a new factory to compensate
 		#print("a")
 		Money -= factory_value
+		factories += 1
 		global.The_Market.Farmers_Market_Value += factory_value
 		Milk_I_Can_Refine += factory_milk_production
 		
@@ -121,10 +151,12 @@ func buy_something(i_am_panicking : bool = false):
 												, farms * cows_per_farm - cows)):
 					global.The_Market.Recent_Farm_Purchases.append(cow_value)
 					global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(cow_value)
-					place_cow(my_farms.pick_random())
+					cows += 1
+					place_cow()
 			else:
 				#print('c')
 				Money -= farm_value
+				farms += 1
 				global.The_Market.Farmers_Market_Value += farm_value
 				
 				global.The_Market.Recent_Farm_Purchases.append(farm_value)
@@ -136,6 +168,7 @@ func buy_something(i_am_panicking : bool = false):
 			#if I somehow precisely have no overproduction, just buy more factories lol
 			#I'll probably need them later anyway
 			Money -= factory_value
+			factories += 1
 			global.The_Market.Farmers_Market_Value += factory_value
 			Milk_I_Can_Refine += factory_milk_production
 			
@@ -144,21 +177,26 @@ func buy_something(i_am_panicking : bool = false):
 			place_building(factory_scene)
 
 func place_building(building_to_place : PackedScene):
+	var location = possible_placement_locations.pop_at(randi_range(0, len(possible_placement_locations) - 1))
+	update_placeable_locations(location)
+	
 	if building_to_place == farm_scene:
 		print("FARMERS BOUGHT FARM")
-		farms+=1
+		#farms+=1
 		var new_farm = farm_scene.instantiate()
 		add_child(new_farm)
 		my_farms.append(new_farm)
+		new_farm.position = Vector3(location.x * tile_width + tile_width/2 ,0, location.y * tile_height + tile_height/2)
 		employees += employees_per_farm
 		#employees_per_factory
 	
 	elif building_to_place == factory_scene:
 		print("FARMERS BOUGHT FACTORY")
-		factories+=1
+		#factories+=1
 		var new_factory = factory_scene.instantiate()
 		add_child(new_factory)
 		my_factories.append(new_factory)
+		new_factory.position = Vector3(location.x * tile_width + tile_width/2,0,location.y * tile_height + tile_height/2)
 		employees += employees_per_factory
 
 func investors_invested(amount : int):

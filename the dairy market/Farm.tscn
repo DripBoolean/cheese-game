@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://bq3qvhfia16yh"]
+[gd_scene load_steps=3 format=3 uid="uid://bq3qvhfia16yh"]
 
 [ext_resource type="Script" path="res://the dairy market/farm.gd" id="1_wqdoh"]
+[ext_resource type="PackedScene" uid="uid://02rnjsbtyiwu" path="res://assets/fence.glb" id="2_p5pwh"]
 
 [node name="Farm" type="Node3D"]
 script = ExtResource("1_wqdoh")
+
+[node name="fence" parent="." instance=ExtResource("2_p5pwh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 11)

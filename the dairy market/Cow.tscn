@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dftv0nxgwjhqy"]
+[gd_scene load_steps=3 format=3 uid="uid://dftv0nxgwjhqy"]
 
 [ext_resource type="Script" path="res://the dairy market/cow.gd" id="1_lx7sd"]
+[ext_resource type="PackedScene" uid="uid://cadyo4w1n4oex" path="res://assets/Cow-irl.glb" id="2_v3ofi"]
 
 [node name="Cow" type="Node3D"]
 script = ExtResource("1_lx7sd")
+
+[node name="Cow-irl" parent="." instance=ExtResource("2_v3ofi")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
