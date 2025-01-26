@@ -218,10 +218,15 @@ func ask_for_money(for_building : bool = false):
 	pass
 
 func government_bought_milk(milk_amount : int):
-	pass
+	print("GOVERNMENT BOUGHT CHEESE")
+	print(milk_amount)
+	global.The_Market.Fake_Demand += milk_amount
 
 func government_gave_subsidy(money_amount : int):
-	pass
+	print("GOVERNMENT GAVE SUBSIDY")
+	Money += money_amount
+	global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(money_amount)
+	global.The_Market.Recent_Changes_in_Farm_Profit.append(money_amount)
 
 func go_to_market():
 	var cur_demand = global.The_Market.Demand
