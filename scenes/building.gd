@@ -11,6 +11,7 @@ var bubble = null
 
 func damage():
 	in_good_form = false
+	#$FireParticle.visible = true
 	match type:
 		"Office1":
 			$Tower1.visible = false
@@ -30,6 +31,7 @@ func damage():
 
 func repair():
 	in_good_form = true
+	#$FireParticle.visible = false
 	match type:
 		"Office1":
 			$Tower1.visible = true
@@ -46,6 +48,7 @@ func repair():
 		"Suburb":
 			$suburb.visible = true
 			$"suburb-Destroyed".visible = false
+	
 
 func have_thought(request_name):
 	if bubble == null:
