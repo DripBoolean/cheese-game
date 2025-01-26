@@ -18,11 +18,8 @@ var state_machine := { ["START", true] : "Money_over", ["START", false] : "Money
 ["Cave_overD", true] : "P_overG", ["Cave_overD", false] : "P_underG",
 ["Cave_underD", true] : "P_overH", ["Cave_underD", false] : "P_underH",} 
 
-var money: float = 50_000_000.0
-var politcal_points: float = 0.0
-var cheese: int = 0
-@export var cheese_max: int = 100
-var cave_cheese: int = 0
+# FOR MONEY, POLITCAL POINTS, AND CHEESE VARIABLES
+var map
 
 var cur_state = null
 
@@ -38,7 +35,6 @@ var demand: float = 0.99
 var panic: float = 0.1
 var mania: bool = false
 var lactose: bool = false
-var map
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -53,12 +49,11 @@ func _random_events( weight_array ) -> String:
 	else:
 		return "null"
 
-
 func update() -> void:
-	var scorer1: bool = money >= 5_000_000.0
-	var scorer2: bool = cheese/cheese_max >= 0.75
-	var scorer3: bool = cave_cheese > 1
-	var scorer4: bool = politcal_points >= 50.0
+	var scorer1: bool = map.money >= 5_000_000.0
+	var scorer2: bool = map.cheese/map.cheese_max >= 0.75
+	var scorer3: bool = map.city_health >= 50.0
+	var scorer4: bool = map.politcal_points >= 50.0
 	var scores := [scorer4, scorer1, scorer2, scorer3]
 	
 	var r_event: String = "null"
@@ -242,17 +237,14 @@ func update() -> void:
 			#print(r_event)
 			event_enum[r_event] = 0.4
 			if r_event == "crime":
-				# Lower city health
-				pass
+				map.city_health -= 25
 			elif r_event == "mad":
 				# Put panic in farm
 				pass
 			elif r_event == "exodus":
-				# Decrease tax revenue
-				pass
+				map.tax_income -= 10_000.0
 			elif r_event == "enterance":
-				# Increase tax revenue
-				pass
+				map.tax_income += 20_000.0
 		random_event_wait_ticks = 5.0
 	else:
 		random_event_wait_ticks = random_event_wait_ticks - 1.0
