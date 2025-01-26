@@ -50,9 +50,9 @@ var Raw_Milk_Supply = 0
 var Raw_Milk_I_Produce = 0
 var Milk_I_Can_Refine = 0
 
-var Goal_Market_Value : float = 5000000
+var Goal_Market_Value : float = 100000000
 
-@export var Base_Time : float = 300
+@export var Base_Time : float = 60
 @onready var time_left : float = Base_Time
 
 @export var Max_Panic = 100
@@ -208,7 +208,7 @@ func investors_invested(amount : int):
 	"""
 	#var money_change = float(number_of_shares) * global.The_Market.Farmers_Market_Value
 	Money += amount
-	Panic -= (amount / global.The_Market.base_investment_amount) * 15
+	#Panic -= (amount / global.The_Market.base_investment_amount) * 15
 	Panic = clamp(Panic, 0, Max_Panic)
 	
 	
@@ -290,6 +290,7 @@ func take_expenses():
 	global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(expenses)
 	global.The_Market.Recent_Changes_in_Farm_Profit.append(
 			expenses)
+	return expenses
 	
 func decide_what_to_do():
 	print("FARM DECISION")
@@ -381,7 +382,10 @@ func _on_update_finances_time_timeout() -> void:
 	print("FARM UPDATE")
 	go_to_market()
 	produce_milk()
-	take_expenses()
+	var expenses = take_expenses()
+	
+	if Money <= -5000000:
+		get_tree().change_scene_to_file("res://scenes/loss_screen.tscn")
 	print("CURRENT MILK SUPPLY: " + str(Milk_Supply))
 	print("CURRENT FARM MONEY: " + str(Money))
 	#decide_what_to_do()

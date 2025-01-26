@@ -7,10 +7,10 @@ class_name Market extends Node3D
 var Fake_Demand : int = 0
 
 ##per Milk
-@export var Baseline_Price_of_Milk : float = 10
+@export var Baseline_Price_of_Milk : float = 5
 @onready var Current_Price_of_Milk : float = Baseline_Price_of_Milk
 
-@export var base_investment_amount = 300000
+@export var base_investment_amount = 1000000
 
 var Farmers_Market_Value = 10
 
