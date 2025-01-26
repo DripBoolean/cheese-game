@@ -73,6 +73,9 @@ func update() -> void:
 	var sBC_range: float = 0.0
 	var sAM_range: float = 0.0
 	
+	# BUG FIX: MUST RESTART MACHINE
+	cur_state = "START"
+	
 	for i in range( len(scores) ):
 		cur_state = state_machine.get( [ cur_state, scores[i] ] )
 		
