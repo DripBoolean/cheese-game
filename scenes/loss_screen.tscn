@@ -1,0 +1,135 @@
+[gd_scene load_steps=11 format=3 uid="uid://m33ib1biixyx"]
+
+[ext_resource type="Script" path="res://scenes/loss_screen.gd" id="1_c4vd5"]
+[ext_resource type="Texture2D" uid="uid://cpbvjvdtfs2vw" path="res://assets/Cow-irl_Cow-texture.png" id="1_to82w"]
+[ext_resource type="FontFile" uid="uid://cx8175b1rg7m6" path="res://assets/fonts/Vintage.ttf" id="3_mngu5"]
+[ext_resource type="Script" path="res://event_dispatcher/3d_in_2d_menu.gd" id="4_qliod"]
+[ext_resource type="PackedScene" uid="uid://cs3imay4gq6lh" path="res://scenes/simple_cow_2.tscn" id="5_ce2j0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ou2rk"]
+texture = ExtResource("1_to82w")
+modulate_color = Color(0.172549, 0.0941176, 0.196078, 0.8)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rqmec"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmcb0"]
+bg_color = Color(1, 0.776471, 0.223529, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7adti"]
+bg_color = Color(1, 0.654902, 0.188235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_laynl"]
+bg_color = Color(1, 1, 0.94902, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[node name="loss_screen" type="CanvasLayer"]
+script = ExtResource("1_c4vd5")
+
+[node name="main_menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ou2rk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -207.0
+offset_top = -95.0
+offset_right = -29.0
+offset_bottom = -27.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="start" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_pressed_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_focus_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_color = Color(0.390813, 0.00171066, 0.6607, 1)
+theme_override_fonts/font = ExtResource("3_mngu5")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rqmec")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mmcb0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_7adti")
+theme_override_styles/normal = SubResource("StyleBoxFlat_laynl")
+text = "Menu"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -400.0
+offset_top = 23.0
+offset_right = 392.0
+offset_bottom = 122.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.898039, 0.705882, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_offset_x = -10
+theme_override_fonts/normal_font = ExtResource("3_mngu5")
+theme_override_fonts/bold_font = ExtResource("3_mngu5")
+theme_override_font_sizes/normal_font_size = 72
+theme_override_font_sizes/bold_font_size = 80
+bbcode_enabled = true
+text = "You [b] LOST [/b] (AMERICA IN RUINS)"
+fit_content = true
+
+[node name="stuff" type="Control" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="3d_in_2d_menu" type="Node2D" parent="main_menu/stuff"]
+position = Vector2(-671, 57)
+script = ExtResource("4_qliod")
+
+[node name="screen" type="Sprite2D" parent="main_menu/stuff/3d_in_2d_menu"]
+
+[node name="SubViewport" type="SubViewport" parent="main_menu/stuff/3d_in_2d_menu"]
+transparent_bg = true
+size = Vector2i(1152, 648)
+
+[node name="simple_cow2" parent="main_menu/stuff/3d_in_2d_menu/SubViewport" instance=ExtResource("5_ce2j0")]
+
+[connection signal="pressed" from="main_menu/VBoxContainer/start" to="." method="_on_start_pressed"]
