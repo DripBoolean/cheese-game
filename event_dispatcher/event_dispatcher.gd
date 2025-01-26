@@ -51,7 +51,7 @@ func _random_events( weight_array ) -> String:
 
 func update() -> void:
 	var scorer1: bool = map.money >= 500_000.0
-	var scorer2: bool = map.cheese >= 7
+	var scorer2: bool = map.cheese >= 50_000.0
 	var scorer3: bool = map.city_health >= 50.0
 	var scorer4: bool = map.political_points >= 50.0
 	var scores := [scorer4, scorer1, scorer2, scorer3]
