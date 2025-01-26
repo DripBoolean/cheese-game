@@ -178,7 +178,7 @@ func determine_price_of_milk():
 	if global.The_Farmers.Milk_Supply == 0:
 		demand_to_supply_ratio = 3
 	else:
-		demand_to_supply_ratio = clamp((Demand + Fake_Demand) / global.The_Farmers.Milk_Supply, 0.5, 3)
+		demand_to_supply_ratio = clamp((Demand + Fake_Demand) / global.The_Farmers.Milk_Supply, 0.75, 2)
 	
 	Fake_Demand = clamp(Fake_Demand/2 - 50, 0, 100000)
 	

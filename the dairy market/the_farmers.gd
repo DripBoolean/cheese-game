@@ -90,9 +90,11 @@ func buy_something(i_am_panicking : bool = false):
 		if Money <= 0:
 			return
 	
+	
 	#if I make more raw milk than I produce, buy a factory
 	if Raw_Milk_I_Produce > Milk_I_Can_Refine:
 		#buy a new factory to compensate
+		print("a")
 		Money -= factory_value
 		Milk_I_Can_Refine += factory_milk_production
 		
@@ -105,6 +107,7 @@ func buy_something(i_am_panicking : bool = false):
 		var overproduction = Milk_I_Can_Refine - Raw_Milk_I_Produce
 		
 		if overproduction > 0:
+			print('b')
 			#buy farms or cows to make up the difference
 			if cows < farms * cows_per_farm:
 				for i in range(randi_range(1, farms * cows_per_farm - cows)):
@@ -112,13 +115,14 @@ func buy_something(i_am_panicking : bool = false):
 					global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(cow_value)
 					place_cow(my_farms.pick_random())
 			else:
-				
+				print('c')
 				Money -= farm_value
 				global.The_Market.Recent_Farm_Purchases.append(farm_value)
 				global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(farm_value)
 				place_building(farm_scene)
 			
 		else:
+			print('d')
 			#if I somehow precisely have no overproduction, just buy more factories lol
 			#I'll probably need them later anyway
 			Money -= factory_value
@@ -189,17 +193,18 @@ func produce_milk():
 	
 	Raw_Milk_I_Produce = cows
 	print("MILK I PRODUCE: " + str(Raw_Milk_I_Produce))
+	
 	var total_milk_made = 0
 	for factory in my_factories:
 		var new_Milk = (factory.Milk_Production *
 						factory.employees_working_here / employees_per_factory)
-		Milk_I_Can_Refine = new_Milk
+		#Milk_I_Can_Refine = new_Milk
 		if (Raw_Milk_Supply - new_Milk) <= 0:
 			Milk_Supply += Raw_Milk_Supply
 			total_milk_made += Raw_Milk_Supply
 			Raw_Milk_Supply = 0
 			break
-		
+		Raw_Milk_Supply -= new_Milk
 		total_milk_made += new_Milk
 	
 	Milk_Supply += total_milk_made
