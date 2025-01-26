@@ -4,7 +4,7 @@ class_name Market extends Node3D
 @export var Max_Demand = 1000000
 @export var Min_Demand = 100
 
-@export var Fake_Demand : int = 0
+var Fake_Demand : int = 0
 
 ##per Milk
 @export var Baseline_Price_of_Milk : float = 10
@@ -33,7 +33,7 @@ var Recent_Changes_in_Employment = []
 @export var weight_of_money_spent = 10
 
 @export var weight_of_Farmers_Market_Value = 20
-@export var min_change_for_max_happy = 500000
+@export var min_change_for_max_happy = 1000000
 
 @export var weight_of_farm_profit = 10
 
@@ -107,7 +107,7 @@ func investment_in_farmers():
 	
 	##change investment chances based on recent purchases
 	
-	var invest_change_num_purchases = clamp(number_of_farm_purchases / min_change_for_max_happy, 0.5, 2)
+	var invest_change_num_purchases = clamp(float(number_of_farm_purchases) / float(min_change_for_max_happy), 0.5, 2)
 	
 	if invest_change_num_purchases < 0:
 		invest_change_num_purchases = -1.0 / invest_change_num_purchases
@@ -119,7 +119,7 @@ func investment_in_farmers():
 	
 	##change investment chances based on amount spent
 	
-	var invest_change_money_spent = clamp(total_farm_purchases / min_change_for_max_happy, 0.5, 2)
+	var invest_change_money_spent = clamp(total_farm_purchases / float(min_change_for_max_happy), 0.5, 2)
 	if invest_change_money_spent < 0:
 		invest_change_money_spent = -1.0 / invest_change_money_spent
 	print(invest_change_money_spent)
@@ -165,6 +165,12 @@ func investment_in_farmers():
 		amount = -base_investment_amount *  clamp(chance_i_sell / chance_i_invest, 0, 2)
 	
 	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
 	print("AMOUNT: " + str(amount))
 	print(chance_i_invest)
 	print(chance_i_sell)
@@ -187,8 +193,9 @@ func determine_price_of_milk():
 	else:
 		demand_to_supply_ratio = clamp((Demand + Fake_Demand) / global.The_Farmers.Milk_Supply, 0.75, 2)
 	
-	Fake_Demand = clamp(Fake_Demand/2 - 50, 0, 100000)
-	
+	print("FAKE DEMAND: " + str(Fake_Demand))
+	Fake_Demand = clamp(Fake_Demand - global.The_Farmers.Milk_Supply/2, 0, 100000)
+	print("FAKE DEMAND CHANGE: " + str(global.The_Farmers.Milk_Supply/2))
 	var price_modulation : float = ratio_to_price_modulation(demand_to_supply_ratio)
 	
 	price_modulation *= randf_range(0.9, 1.1)
