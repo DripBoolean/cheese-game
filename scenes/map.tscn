@@ -28,7 +28,7 @@ script = ExtResource("1_y30s5")
 [node name="TheMarket" parent="." instance=ExtResource("2_uvx7c")]
 
 [node name="Player" parent="." instance=ExtResource("2_yacs5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.28101, 4.81822, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25895, 9.43361, 8.63653)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.850141, -0.345514, 0.397342, 0, 0.754606, 0.656178, -0.526555, -0.557843, 0.641522, 0, 0, 0)

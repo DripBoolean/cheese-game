@@ -8,4 +8,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	cow.global_rotate(Vector3(0.0,1.0,0.0),0.1+delta)
+	cow.global_rotate(Vector3(0.0,1.0,0.0),0.75*delta)
