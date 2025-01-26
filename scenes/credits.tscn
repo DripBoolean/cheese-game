@@ -58,10 +58,123 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ocgjy")
 
-[node name="SpeechBubble" type="Sprite2D" parent="main_menu"]
-position = Vector2(595, 930)
+[node name="Control" type="Control" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpeechBubble" type="Sprite2D" parent="main_menu/Control"]
+position = Vector2(39, 626)
 scale = Vector2(1.32375, 2.41021)
 texture = ExtResource("2_j2n7c")
+
+[node name="dustin" type="Label" parent="main_menu/Control"]
+layout_mode = 1
+offset_left = -239.0
+offset_top = -39.0
+offset_right = 47.0
+offset_bottom = 13.0
+rotation = -0.363995
+scale = Vector2(1.11531, 0.929316)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 50
+text = "Dustin Simpkins
+"
+
+[node name="thomas" type="Label" parent="main_menu/Control"]
+layout_mode = 1
+offset_left = -294.0
+offset_top = 142.0
+offset_right = -58.0
+offset_bottom = 194.0
+rotation = 0.409487
+theme_override_colors/font_color = Color(1, 0.733333, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 50
+text = "Thomas King
+"
+
+[node name="violet" type="Label" parent="main_menu/Control"]
+layout_mode = 1
+offset_left = -17.0
+offset_top = 239.0
+offset_right = 264.0
+offset_bottom = 291.0
+rotation = -0.18219
+scale = Vector2(1.06598, 1.1047)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 50
+text = "Violet Warnock
+"
+
+[node name="trinity" type="Label" parent="main_menu/Control"]
+layout_mode = 1
+offset_left = -36.0
+offset_top = -53.0
+offset_right = 399.0
+offset_bottom = -1.0
+rotation = 0.199187
+scale = Vector2(0.934902, 1.34093)
+theme_override_colors/font_color = Color(1, 0.733333, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 42
+text = "Trinity \"Beeb\" Bartholomew
+"
+
+[node name="simon" type="Label" parent="main_menu/Control"]
+layout_mode = 1
+offset_left = -266.0
+offset_top = 34.0
+offset_right = -12.0
+offset_bottom = 86.0
+rotation = 0.199187
+scale = Vector2(1.04226, 1.36925)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 50
+text = "Simon Rhodes"
+
+[node name="chris" type="Label" parent="main_menu/Control"]
+layout_mode = 1
+offset_left = 67.0
+offset_top = 95.0
+offset_right = 293.0
+offset_bottom = 147.0
+rotation = -0.0357582
+scale = Vector2(0.873649, 1.76402)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 42
+text = "Chris Schneller"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="main_menu"]
 layout_mode = 1
@@ -89,111 +202,16 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_jumh5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rhw4r")
 text = "Menu"
 
-[node name="dustin" type="Label" parent="main_menu"]
-layout_mode = 1
-offset_left = 317.0
-offset_top = 265.0
-offset_right = 603.0
-offset_bottom = 317.0
-rotation = -0.363995
-scale = Vector2(1.11531, 0.929316)
-theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_fonts/font = ExtResource("3_fpggc")
-theme_override_font_sizes/font_size = 50
-text = "Dustin Simpkins
-"
-
-[node name="thomas" type="Label" parent="main_menu"]
-layout_mode = 1
-offset_left = 262.0
-offset_top = 446.0
-offset_right = 498.0
-offset_bottom = 498.0
-rotation = 0.409487
-theme_override_colors/font_color = Color(1, 0.733333, 0.2, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_fonts/font = ExtResource("3_fpggc")
-theme_override_font_sizes/font_size = 50
-text = "Thomas King
-"
-
-[node name="violet" type="Label" parent="main_menu"]
-layout_mode = 1
-offset_left = 539.0
-offset_top = 543.0
-offset_right = 820.0
-offset_bottom = 595.0
-rotation = -0.18219
-scale = Vector2(1.06598, 1.1047)
-theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_fonts/font = ExtResource("3_fpggc")
-theme_override_font_sizes/font_size = 50
-text = "Violet Warnock
-"
-
-[node name="trinity" type="Label" parent="main_menu"]
-layout_mode = 1
-offset_left = 520.0
-offset_top = 251.0
-offset_right = 955.0
-offset_bottom = 303.0
-rotation = 0.199187
-scale = Vector2(0.934902, 1.34093)
-theme_override_colors/font_color = Color(1, 0.733333, 0.2, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_fonts/font = ExtResource("3_fpggc")
-theme_override_font_sizes/font_size = 42
-text = "Trinity \"Beeb\" Bartholomew
-"
-
-[node name="simon" type="Label" parent="main_menu"]
-layout_mode = 1
-offset_left = 290.0
-offset_top = 338.0
-offset_right = 544.0
-offset_bottom = 390.0
-rotation = 0.199187
-scale = Vector2(1.04226, 1.36925)
-theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_fonts/font = ExtResource("3_fpggc")
-theme_override_font_sizes/font_size = 50
-text = "Simon Rhodes"
-
-[node name="chris" type="Label" parent="main_menu"]
-layout_mode = 1
-offset_left = 623.0
-offset_top = 399.0
-offset_right = 849.0
-offset_bottom = 451.0
-rotation = -0.0357582
-scale = Vector2(0.873649, 1.76402)
-theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 5
-theme_override_fonts/font = ExtResource("3_fpggc")
-theme_override_font_sizes/font_size = 42
-text = "Chris Schneller"
-
 [node name="RichTextLabel" type="RichTextLabel" parent="main_menu"]
-layout_mode = 0
-offset_left = 337.0
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -241.0
 offset_top = 38.0
-offset_right = 952.0
+offset_right = 374.0
 offset_bottom = 137.0
+grow_horizontal = 2
 theme_override_colors/default_color = Color(0.898039, 0.705882, 0, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_y = 10
