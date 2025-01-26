@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://d32sksxccf1gp"]
+[gd_scene load_steps=11 format=3 uid="uid://d32sksxccf1gp"]
 
 [ext_resource type="Script" path="res://scenes/credits.gd" id="1_0j2e8"]
 [ext_resource type="Texture2D" uid="uid://cpbvjvdtfs2vw" path="res://assets/Cow-irl_Cow-texture.png" id="1_fyxlx"]
 [ext_resource type="Texture2D" uid="uid://du4nkgfoj1641" path="res://assets/speech_bubble.png" id="2_j2n7c"]
 [ext_resource type="FontFile" uid="uid://cx8175b1rg7m6" path="res://assets/fonts/Vintage.ttf" id="3_fpggc"]
+[ext_resource type="AudioStream" uid="uid://b57k7t6yqifrt" path="res://assets/Sounds/Jahzzar - Railroad's Whiskey Co.mp3" id="5_wh1gm"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ocgjy"]
 texture = ExtResource("1_fyxlx")
@@ -221,5 +222,9 @@ theme_override_font_sizes/normal_font_size = 72
 bbcode_enabled = true
 text = "The [s] Cows [/s] People"
 fit_content = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="main_menu"]
+stream = ExtResource("5_wh1gm")
+autoplay = true
 
 [connection signal="pressed" from="main_menu/VBoxContainer/start" to="." method="_on_start_pressed"]

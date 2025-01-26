@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b57k7t6yqifrt"
+path="res://.godot/imported/Jahzzar - Railroad's Whiskey Co.mp3-a7fef887908dd446f454d76068db3706.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds/Jahzzar - Railroad's Whiskey Co.mp3"
+dest_files=["res://.godot/imported/Jahzzar - Railroad's Whiskey Co.mp3-a7fef887908dd446f454d76068db3706.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
