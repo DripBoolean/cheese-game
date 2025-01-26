@@ -1,13 +1,13 @@
 class_name Market extends Node3D
 
-@export var Demand = 150
-@export var Max_Demand = 10000
-@export var Min_Demand = 10
+@export var Demand = 15000
+@export var Max_Demand = 1000000
+@export var Min_Demand = 100
 
 @export var Fake_Demand : int = 0
 
 ##per Milk
-@export var Baseline_Price_of_Milk : float = 1
+@export var Baseline_Price_of_Milk : float = 5
 @onready var Current_Price_of_Milk : float = Baseline_Price_of_Milk
 
 @export var base_investment_amount = 150
@@ -62,7 +62,7 @@ func update_market():
 
 func ratio_to_price_modulation(ratio : float)-> float:
 	
-	var modulation :float = log(ratio)/2 + 1
+	var modulation : float = 2 - (log(50)/log(10) - log(5*ratio)/log(10))#:float = log(ratio)/2 + 1
 	
 	return modulation
 
@@ -161,9 +161,8 @@ func investment_in_farmers():
 	print("INVESTMENTS")
 	print("AMOUNT: " + str(amount))
 	
-	
 	global.The_Farmers.investors_invested(amount)
-	Farmers_Market_Value += total_change_in_Farmers_Market_Value + total_recent_Milk_Price_changes + total_farm_purchases
+	#Farmers_Market_Value += total_change_in_Farmers_Market_Value + total_recent_Milk_Price_changes + total_farm_purchases
 
 func direct_demand_change(change : float):
 	pass
@@ -171,8 +170,8 @@ func direct_demand_change(change : float):
 func direct_price_change(change : float):
 	pass
 
-
 func determine_price_of_milk():
+	print("MARKET ALTERATIONS")
 	var demand_to_supply_ratio = 1
 	
 	if global.The_Farmers.Milk_Supply == 0:
@@ -204,7 +203,6 @@ func determine_price_of_milk():
 	Farmers_Market_Value += current_supply_worth
 	
 	Recent_Changes_in_Farmers_Market_Value.append(current_supply_worth - previous_supply_worth)
-	print("MARKET ALTERATIONS")
 	print("DEMAND: " + str(Demand))
 	print("PRICE: " + str(Current_Price_of_Milk))
 	

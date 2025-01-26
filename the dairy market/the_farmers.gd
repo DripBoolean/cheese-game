@@ -1,30 +1,31 @@
 class_name Farmers extends Node3D
 
-@export var Money = 100
-@export var Milk_Supply = 50
+@export var Money = 1000000
+@export var Milk_Supply = 50000
 
 @export var farm_scene : PackedScene = null
 @export var farms = 2
-@export var farm_value = 10
+@export var farm_value = 10000
 @export var cows_per_farm = 10
 @export var employees_per_farm = 2
-@export var farm_maintenance = 0.5
+@export var farm_maintenance = 500
 
 @export var cow_scene : PackedScene = null
 @export var cows = 10
 @export var cow_value = 2
-@export var cow_maintenance = 0.1
+@export var milk_per_cow = 100
+@export var cow_maintenance = 100
 
 @export var factory_scene : PackedScene = null
 @export var factories = 1
-@export var factory_value = 30
-@export var employees_per_factory = 5
-@export var factory_maintenance = 3
-@export var factory_milk_production = 10
-@export var price_to_process_each_milk = 0.05
+@export var factory_value = 250000
+@export var employees_per_factory = 10
+@export var factory_maintenance = 50000
+@export var factory_milk_production = 10000
+@export var price_to_process_each_milk = 1
 
 var employees = 0
-@export var employee_wage = 1
+@export var employee_wage = 1000
 
 @export var tile_height = 1
 @export var tile_width = 1
@@ -58,6 +59,8 @@ var my_farms : Array[Farm] = []
 var my_cows : Array[Cow] = []
 var my_factories : Array[Factory] = []
 
+#100 000 a second
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	global.The_Farmers = self
@@ -82,7 +85,6 @@ func _ready() -> void:
 #func 
 func place_cow(farm_to_place_cow_in : Node3D):
 	print("FARMERS BOUGHT COW")
-	
 	cows+=1
 
 func buy_something(i_am_panicking : bool = false):
@@ -90,12 +92,12 @@ func buy_something(i_am_panicking : bool = false):
 		if Money <= 0:
 			return
 	
-	
 	#if I make more raw milk than I produce, buy a factory
 	if Raw_Milk_I_Produce > Milk_I_Can_Refine:
 		#buy a new factory to compensate
 		print("a")
 		Money -= factory_value
+		global.The_Market.Farmers_Market_Value += factory_value
 		Milk_I_Can_Refine += factory_milk_production
 		
 		global.The_Market.Recent_Farm_Purchases.append(factory_value)
@@ -117,6 +119,8 @@ func buy_something(i_am_panicking : bool = false):
 			else:
 				print('c')
 				Money -= farm_value
+				global.The_Market.Farmers_Market_Value += farm_value
+				
 				global.The_Market.Recent_Farm_Purchases.append(farm_value)
 				global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(farm_value)
 				place_building(farm_scene)
@@ -126,6 +130,7 @@ func buy_something(i_am_panicking : bool = false):
 			#if I somehow precisely have no overproduction, just buy more factories lol
 			#I'll probably need them later anyway
 			Money -= factory_value
+			global.The_Market.Farmers_Market_Value += factory_value
 			Milk_I_Can_Refine += factory_milk_production
 			
 			global.The_Market.Recent_Farm_Purchases.append(factory_value)
