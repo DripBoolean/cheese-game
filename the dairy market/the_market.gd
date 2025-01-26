@@ -7,10 +7,10 @@ class_name Market extends Node3D
 @export var Fake_Demand : int = 0
 
 ##per Milk
-@export var Baseline_Price_of_Milk : float = 5
+@export var Baseline_Price_of_Milk : float = 10
 @onready var Current_Price_of_Milk : float = Baseline_Price_of_Milk
 
-@export var base_investment_amount = 150
+@export var base_investment_amount = 300000
 
 var Farmers_Market_Value = 10
 
@@ -28,12 +28,12 @@ var Recent_Changes_in_Employment = []
 ##INVESTMENT GARBARGE
 
 @export var weight_of_items_purchased = 20
-@export var min_items_purchased_for_max_happy = 5
+@export var min_items_purchased_for_max_happy = 10
 
 @export var weight_of_money_spent = 10
 
 @export var weight_of_Farmers_Market_Value = 20
-@export var min_change_for_max_happy = 300
+@export var min_change_for_max_happy = 500000
 
 @export var weight_of_farm_profit = 10
 
@@ -46,6 +46,9 @@ var Recent_Changes_in_Employment = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	global.The_Market = self
+	call_deferred("set_up_farmer_data")
+	#Recent_Changes_in_Farm_Value.append()
+func set_up_farmer_data():
 	var farmer_ref : Farmers = global.The_Farmers
 	var current_farmer_assets = (farmer_ref.cows * farmer_ref.cow_value
 								+ farmer_ref.farms * farmer_ref.farm_value
@@ -55,7 +58,6 @@ func _ready() -> void:
 								+ farmer_ref.Raw_Milk_Supply * Current_Price_of_Milk / 2.0)
 	
 	Farmers_Market_Value = current_farmer_assets
-	#Recent_Changes_in_Farm_Value.append()
 
 func update_market():
 	determine_price_of_milk()
@@ -109,6 +111,7 @@ func investment_in_farmers():
 	
 	if invest_change_num_purchases < 0:
 		invest_change_num_purchases = -1.0 / invest_change_num_purchases
+	#print(invest_change_num_purchases)
 	
 	invest_change_num_purchases *= weight_of_items_purchased
 	chance_i_invest += invest_change_num_purchases
@@ -119,7 +122,7 @@ func investment_in_farmers():
 	var invest_change_money_spent = clamp(total_farm_purchases / min_change_for_max_happy, 0.5, 2)
 	if invest_change_money_spent < 0:
 		invest_change_money_spent = -1.0 / invest_change_money_spent
-		
+	#print(invest_change_money_spent)
 	invest_change_money_spent *= weight_of_money_spent
 	chance_i_invest += invest_change_money_spent
 	chance_i_sell -= invest_change_money_spent
@@ -133,7 +136,7 @@ func investment_in_farmers():
 	
 	if invest_change_milk < 0:
 		invest_change_milk = -1.0 / invest_change_milk
-	
+	#print(invest_change_milk)
 	invest_change_milk *= weight_of_milk_value
 	chance_i_invest += invest_change_milk
 	chance_i_sell -= invest_change_milk
@@ -143,23 +146,28 @@ func investment_in_farmers():
 	
 	if invest_change_value < 0:
 		invest_change_value = -1.0 / invest_change_value
-	
+	#print(invest_change_value)
 	invest_change_value *= weight_of_Farmers_Market_Value
 	chance_i_invest += invest_change_value
 	chance_i_sell -= invest_change_value
 	
 	
+	
+	chance_i_invest = clamp(chance_i_invest, 0, 100)
+	chance_i_sell = clamp(chance_i_sell, 0, 100)
 	##determine investment total
 	var amount = 0
-	if randf() > chance_i_invest / 100.0:
+	if randf() < chance_i_invest/ 100.0:
 		##they choose to invest
-		amount = base_investment_amount *  clamp(chance_i_invest / chance_i_sell, 0, 4)
+		amount = base_investment_amount *  clamp(chance_i_invest / chance_i_sell, 0, 2)
 	else:
 		##they choose not to invest
-		amount = -base_investment_amount *  clamp(chance_i_sell / chance_i_invest, 0, 4)
+		amount = -base_investment_amount *  clamp(chance_i_sell / chance_i_invest, 0, 2)
 	
 	print("INVESTMENTS")
 	print("AMOUNT: " + str(amount))
+	print(chance_i_invest)
+	print(chance_i_sell)
 	
 	global.The_Farmers.investors_invested(amount)
 	#Farmers_Market_Value += total_change_in_Farmers_Market_Value + total_recent_Milk_Price_changes + total_farm_purchases
@@ -175,7 +183,7 @@ func determine_price_of_milk():
 	var demand_to_supply_ratio = 1
 	
 	if global.The_Farmers.Milk_Supply == 0:
-		demand_to_supply_ratio = 3
+		demand_to_supply_ratio = 2
 	else:
 		demand_to_supply_ratio = clamp((Demand + Fake_Demand) / global.The_Farmers.Milk_Supply, 0.75, 2)
 	
@@ -185,7 +193,7 @@ func determine_price_of_milk():
 	
 	price_modulation *= randf_range(0.9, 1.1)
 	print("PRICE MODULATION: " + str(price_modulation))
-	var demand_change : float = modulation_to_demand_change(price_modulation)
+	var demand_change : float = modulation_to_demand_change(demand_to_supply_ratio)
 	
 	demand_change *= randf_range(0.9, 1.1)
 	print("DEMAND CHANGE: " + str(demand_change))
@@ -205,24 +213,7 @@ func determine_price_of_milk():
 	Recent_Changes_in_Farmers_Market_Value.append(current_supply_worth - previous_supply_worth)
 	print("DEMAND: " + str(Demand))
 	print("PRICE: " + str(Current_Price_of_Milk))
-	
-	"""	
-	make an equation that modulates the current price by the factor generated below
-	
-	the lowr supply is than demand, the lower the price goes
-	
-		lower demand than supply -> price decreases 
-		
-			effects: this lowers the price, which increases the demand
-		
-		demand roughly equals supply -> price remains the same ---- player tries to maintain this
-		
-		higher demand than supply -> price increases
-		
-			effects: this increase the price, which decreases the demand
-	these changes will affect demand slightly
-	"""
-
+	print("FARMERS VALUE: " + str(Farmers_Market_Value))
 func _on_market_update_time_timeout() -> void:
 	print()
 	determine_price_of_milk()
