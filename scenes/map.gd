@@ -14,7 +14,7 @@ var building_generation = [
 ]
 
 var money = 1000000.0
-var political_points = 50.0
+var political_points = 0.0
 var cheese = 0.0
 var cheese_max = 100.0
 var tax_income = 100000.0
@@ -37,11 +37,14 @@ func spawn_buildings():
 
 func enact_request(request_outcome):
 	if request_outcome == "give_farm_money":
+		political_points += 5.0
 		money -= 1000000.0
 		$TheMarket.government_gave_subsidy(1000)
 	if request_outcome == "give_city_money":
+		political_points += 2.0
 		money -= 1000000.0
 	if request_outcome == "give_suburb_money":
+		political_points += 1.0
 		money -= 2000000.0
 	if request_outcome == "buy_milk":
 		$TheMarket.government_bought_milk(5000)
@@ -70,8 +73,10 @@ func spawn_bubble(area, request):
 func _process(delta):
 	time_till_next_election -= delta
 	
-	
-	$UI/Stats.text = "Money: %f   PP: %f  Cheese: %f Time: %f" % [money, political_points, cheese, time_till_next_election]
+	$UI/CanvasLayer/HUD/ProgressBar.value = political_points
+	$UI/Time.text = "Time: %f" % [time_till_next_election]
+	$UI/Money.text = "%f" % [money]
+	$UI/Cheese.text = "%f" % [cheese]
 
 	time_since_last_request += delta
 	

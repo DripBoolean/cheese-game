@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://u5yt3wfkusk4"]
+[gd_scene load_steps=11 format=3 uid="uid://u5yt3wfkusk4"]
 
 [ext_resource type="Script" path="res://scenes/map.gd" id="1_y30s5"]
 [ext_resource type="PackedScene" uid="uid://ce6snh3sed8s" path="res://the dairy market/The_Market.tscn" id="2_uvx7c"]
 [ext_resource type="PackedScene" uid="uid://v5q2ern0mj33" path="res://scenes/player.tscn" id="2_yacs5"]
 [ext_resource type="Script" path="res://event_dispatcher/event_dispatcher.gd" id="3_xe1g8"]
+[ext_resource type="PackedScene" uid="uid://bhevxu0fx6u3p" path="res://scenes/hud.tscn" id="5_gj2mf"]
 [ext_resource type="PackedScene" uid="uid://co5d7ar3kc1h4" path="res://the dairy market/The_Farmers.tscn" id="5_whmgt"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_35lqr"]
@@ -49,10 +50,31 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 1
 
-[node name="Stats" type="Label" parent="UI"]
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+
+[node name="HUD" parent="UI/CanvasLayer" instance=ExtResource("5_gj2mf")]
+mouse_filter = 2
+
+[node name="Time" type="Label" parent="UI"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 925.0
+offset_top = 57.0
+offset_right = 965.0
+offset_bottom = 80.0
+
+[node name="Money" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 69.0
+offset_right = 137.0
+offset_bottom = 92.0
+
+[node name="Cheese" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 125.0
+offset_right = 146.0
+offset_bottom = 148.0
 
 [node name="TheFarmers" parent="." instance=ExtResource("5_whmgt")]
 
