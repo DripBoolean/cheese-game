@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://co5d7ar3kc1h4" path="res://the dairy market/The_Farmers.tscn" id="5_whmgt"]
 [ext_resource type="PackedScene" uid="uid://ddg0sn3jpjrlp" path="res://assets/map.glb" id="7_24jso"]
 [ext_resource type="PackedScene" uid="uid://b2wb1tgwan7he" path="res://scenes/building.tscn" id="8_uri7x"]
-[ext_resource type="PackedScene" path="res://scenes/not_bare_tree.tscn" id="9_3ia8q"]
+[ext_resource type="PackedScene" uid="uid://c3yynrdogb7cu" path="res://scenes/not_bare_tree.tscn" id="9_3ia8q"]
 [ext_resource type="AudioStream" uid="uid://deisvjis8mplo" path="res://assets/Sounds/Axletree - The Silent Grove.mp3" id="10_la36s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8648y"]
