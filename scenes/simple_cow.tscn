@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccfufiqge3ea1"]
+
+[ext_resource type="Script" path="res://event_dispatcher/simple_cow.gd" id="1_h0fts"]
+[ext_resource type="PackedScene" uid="uid://cadyo4w1n4oex" path="res://assets/Cow-irl.glb" id="1_s7ev1"]
+
+[node name="simple cow" type="Node3D"]
+script = ExtResource("1_h0fts")
+
+[node name="Cow-irl2" parent="." instance=ExtResource("1_s7ev1")]
+transform = Transform3D(0.301521, 0, -0.953459, 0, 1, 0, 0.953459, 0, 0.301521, -0.485424, 0, 0)
+
+[node name="Cow-irl" parent="." instance=ExtResource("1_s7ev1")]
+
+[node name="Camera3D" type="Camera3D" parent="Cow-irl"]
+transform = Transform3D(0.962512, 0.0146966, -0.27084, 0.0326187, 0.985013, 0.16937, 0.26927, -0.171855, 0.947607, -0.149408, 0.418348, 0.95544)
+projection = 1
+size = 0.929005
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Cow-irl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439244, 1.1204)
