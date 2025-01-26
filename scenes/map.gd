@@ -26,20 +26,23 @@ var time_since_last_request = 0.0
 var loaded_buildings = []
 
 func spawn_buildings():
-	for building in building_generation:
-		var new_building = load("res://scenes/building.tscn").instantiate()
-		new_building.type = building.type
-		new_building.position = building.position
-		new_building.map = self
-		new_building.area = building.area
-		loaded_buildings.append(new_building)
-		add_child(new_building)
+	loaded_buildings = $Buildings.get_children()
+	for building in loaded_buildings:
+		building.map = self
+	#for building in building_generation:
+		#var new_building = load("res://scenes/building.tscn").instantiate()
+		#new_building.type = building.type
+		#new_building.position = building.position
+		#new_building.map = self
+		#new_building.area = building.area
+		#loaded_buildings.append(new_building)
+		#add_child(new_building)
 
 func enact_request(request_outcome):
 	if request_outcome == "give_farm_money":
 		political_points += 5.0
 		money -= 1000000.0
-		#$TheMarket.government_gave_subsidy(1000)
+		$TheFarmers.government_gave_subsidy(1000)
 	if request_outcome == "give_city_money":
 		political_points += 2.0
 		money -= 1000000.0
@@ -47,7 +50,7 @@ func enact_request(request_outcome):
 		political_points += 1.0
 		money -= 2000000.0
 	if request_outcome == "buy_milk":
-		#$TheMarket.government_bought_milk(5000)
+		$TheFarmers.government_bought_milk(5000)
 		money -= 5000000.0
 		cheese += 4
 	if request_outcome == "sell_cheese":

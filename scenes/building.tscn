@@ -1,18 +1,89 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2wb1tgwan7he"]
+[gd_scene load_steps=18 format=3 uid="uid://b2wb1tgwan7he"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_x14ni"]
 [ext_resource type="PackedScene" uid="uid://cpi2my4pg45nd" path="res://assets/Tower1.glb" id="2_r2s5d"]
+[ext_resource type="PackedScene" uid="uid://fr0820etlocw" path="res://assets/Tower2.glb" id="3_4evj5"]
+[ext_resource type="PackedScene" uid="uid://c45i3023o7bj0" path="res://assets/Tower1-Destroyed.glb" id="3_10ayo"]
+[ext_resource type="PackedScene" uid="uid://bjofw3vwiji75" path="res://assets/Tower3.glb" id="4_s3uk6"]
+[ext_resource type="PackedScene" uid="uid://c8f44on2kq0am" path="res://assets/Tower2-Destroyed.glb" id="5_y4dla"]
+[ext_resource type="PackedScene" uid="uid://c8efaodatqifr" path="res://assets/Tower3-Destroyed.glb" id="7_27aqi"]
+[ext_resource type="PackedScene" uid="uid://cfpcbtag1y3n3" path="res://assets/Final-Tower.glb" id="8_b3gbm"]
+[ext_resource type="PackedScene" uid="uid://bob2ta2qgtpev" path="res://assets/Final-Tower-Destroyed.glb" id="9_7ktfq"]
+[ext_resource type="PackedScene" uid="uid://jcdj3rtrhfps" path="res://assets/suburb.glb" id="10_2bobf"]
+[ext_resource type="PackedScene" uid="uid://doj2uqyts8opo" path="res://assets/suburb-Destroyed.glb" id="11_vx2x0"]
+[ext_resource type="PackedScene" uid="uid://bkp2db2i0gwpg" path="res://assets/farm-house.glb" id="12_f2kxu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4lree"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k2feg"]
+transparency = 1
+albedo_color = Color(0.0627451, 1, 1, 0.117647)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fv5ed"]
+material = SubResource("StandardMaterial3D_k2feg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sxpk6"]
+transparency = 1
+albedo_color = Color(1, 0.0901961, 1, 0.196078)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lbb3g"]
+material = SubResource("StandardMaterial3D_sxpk6")
 
 [node name="Building" type="Node3D"]
 script = ExtResource("1_x14ni")
 
+[node name="Mesh3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.509197, 0, 0, 0, 0.456818, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_4lree")
+
+[node name="Mesh2" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.61795, 0, 0, 0, 0.497405, 0, 0, 0, 1, 0.153922, 0, 0)
+mesh = SubResource("BoxMesh_fv5ed")
+
 [node name="Mesh" type="MeshInstance3D" parent="."]
-visible = false
 mesh = SubResource("BoxMesh_lbb3g")
 
 [node name="Tower1" parent="." instance=ExtResource("2_r2s5d")]
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+visible = false
+
+[node name="Tower1-Destroyed" parent="." instance=ExtResource("3_10ayo")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+visible = false
+
+[node name="Tower2" parent="." instance=ExtResource("3_4evj5")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+visible = false
+
+[node name="Tower2-Destroyed" parent="." instance=ExtResource("5_y4dla")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+visible = false
+
+[node name="Tower3" parent="." instance=ExtResource("4_s3uk6")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, -0.68496, 0)
+visible = false
+
+[node name="Tower3-Destroyed" parent="." instance=ExtResource("7_27aqi")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, -0.658, 0)
+visible = false
+
+[node name="Final-Tower" parent="." instance=ExtResource("8_b3gbm")]
+transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, 0, 0, 0)
+visible = false
+
+[node name="Final-Tower-Destroyed" parent="." instance=ExtResource("9_7ktfq")]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+visible = false
+
+[node name="suburb" parent="." instance=ExtResource("10_2bobf")]
+transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, -0.171179, 0, 0)
+
+[node name="suburb-Destroyed" parent="." instance=ExtResource("11_vx2x0")]
+transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, -0.171, 0, 0)
+visible = false
+
+[node name="farm-house" parent="." instance=ExtResource("12_f2kxu")]
+transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, 0, 0, 0)
+visible = false
 
 [editable path="Tower1"]

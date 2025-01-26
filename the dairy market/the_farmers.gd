@@ -75,7 +75,7 @@ func _ready() -> void:
 		grid.append(columun)
 	
 	grid[farm_location_x][farm_location_y] = 1
-	$farm_house.position = Vector3(farm_location_x * tile_width + tile_width/2 ,0, farm_location_y * tile_height + tile_height/2)
+	#$farm_house.position = Vector3(farm_location_x * tile_width + tile_width/2 ,0, farm_location_y * tile_height + tile_height/2)
 	update_placeable_locations(Vector2(farm_location_x, farm_location_y))
 	
 	for i in range(farms):
