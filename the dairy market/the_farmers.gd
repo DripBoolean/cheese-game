@@ -46,7 +46,7 @@ var Raw_Milk_Supply = 0
 var Raw_Milk_I_Produce = 0
 var Milk_I_Can_Refine = 0
 
-var Goal_Market_Value : float = 0
+var Goal_Market_Value : float = 1000000000000
 
 @export var Base_Time : float = 300
 @onready var time_left : float = Base_Time
@@ -66,17 +66,23 @@ func _ready() -> void:
 		var new_farm = farm_scene.instantiate()
 		new_farm.num_cow_slots_available = cows_per_farm
 		add_child(new_farm)
+		my_farms.append(new_farm)
 	
 	for i in range(cows):
 		var new_cow = cow_scene.instantiate()
 		add_child(new_cow)
+		my_cows.append(new_cow)
 	
 	for i in range(factories):
+		#my_factories.append()
 		var new_factory = factory_scene.instantiate()
 		add_child(new_factory)
+		my_factories.append(new_factory)
 
 #func 
 func place_cow(farm_to_place_cow_in : Node3D):
+	print("FARMERS BOUGHT COW")
+	
 	cows+=1
 
 func buy_something(i_am_panicking : bool = false):
@@ -97,12 +103,14 @@ func buy_something(i_am_panicking : bool = false):
 	else:
 		#figure out how much over production I have
 		var overproduction = Milk_I_Can_Refine - Raw_Milk_I_Produce
-		;
+		
 		if overproduction > 0:
 			#buy farms or cows to make up the difference
 			if cows < farms * cows_per_farm:
-				Raw_Milk_I_Produce += 1
-				pass
+				for i in range(randi_range(1, farms * cows_per_farm - cows)):
+					global.The_Market.Recent_Farm_Purchases.append(cow_value)
+					global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(cow_value)
+					place_cow(my_farms.pick_random())
 			else:
 				
 				Money -= farm_value
@@ -122,14 +130,19 @@ func buy_something(i_am_panicking : bool = false):
 
 func place_building(building_to_place : PackedScene):
 	if building_to_place == farm_scene:
+		print("FARMERS BOUGHT FARM")
 		farms+=1
-		
-		pass
+		var new_farm = farm_scene.instantiate()
+		add_child(new_farm)
+		my_farms.append(new_farm)
 		#employees_per_factory
 	
 	elif building_to_place == factory_scene:
+		print("FARMERS BOUGHT FACTORY")
 		factories+=1
-		pass
+		var new_factory = factory_scene.instantiate()
+		add_child(new_factory)
+		my_factories.append(new_factory)
 
 func investors_invested(amount : int):
 	"""
@@ -140,7 +153,7 @@ func investors_invested(amount : int):
 	"""
 	#var money_change = float(number_of_shares) * global.The_Market.Farmers_Market_Value
 	Money += amount
-	Panic += (amount / global.The_Market.base_investment_cost) * 15
+	Panic += (amount / global.The_Market.base_investment_amount) * 15
 	
 	
 ##Either ask directly for a loan 
@@ -163,6 +176,8 @@ func go_to_market():
 	
 	var money_change = actual_change * global.The_Market.Current_Price_of_Milk
 	Money += money_change
+	print("MILK SOLD: " + str(actual_change))
+	print("MONEY MADE: " + str(money_change))
 	global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(
 			money_change)
 	global.The_Market.Recent_Changes_in_Farm_Profit.append(money_change)
@@ -170,10 +185,10 @@ func go_to_market():
 func produce_milk():
 	
 	for cow in range(cows):
-		Raw_Milk_Supply += cows * 1
-		
-	Raw_Milk_I_Produce = cows
+		Raw_Milk_Supply += 1
 	
+	Raw_Milk_I_Produce = cows
+	print("MILK I PRODUCE: " + str(Raw_Milk_I_Produce))
 	var total_milk_made = 0
 	for factory in my_factories:
 		var new_Milk = (factory.Milk_Production *
@@ -187,6 +202,9 @@ func produce_milk():
 		
 		total_milk_made += new_Milk
 	
+	Milk_Supply += total_milk_made
+	print("MILK MADE: " + str(total_milk_made))
+	print("FACTORIES I OWN: " + str(len(my_factories)))
 	Money -= total_milk_made * price_to_process_each_milk
 	global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(
 			total_milk_made * price_to_process_each_milk)
@@ -198,12 +216,14 @@ func take_expenses():
 	var expenses = (farm_maintenance * farms + 
 				factory_maintenance * factories +
 				employees * employee_wage)
+	print("EXPENSES: " + str(expenses))
 	Money -= expenses
 	global.The_Market.Recent_Changes_in_Farmers_Market_Value.append(expenses)
 	global.The_Market.Recent_Changes_in_Farm_Profit.append(
 			expenses)
 	
 func decide_what_to_do():
+	print("FARM DECISION")
 	
 	
 	"""
@@ -215,15 +235,19 @@ func decide_what_to_do():
 		
 		- if I am far above my goal, be more extreme
 	"""
-	var cur_value_to_desired_value = (global.The_Market.Dairy_Market_Value / Goal_Market_Value)
+	var cur_value_to_desired_value = (global.The_Market.Farmers_Market_Value / Goal_Market_Value)
+	print("CURRENT VALUE PROGRESS: " + str(cur_value_to_desired_value))
 	
 	var ratio_of_time_left = time_left / Base_Time
-	
+	print("RATIO OF TIME LEFT: " + str(ratio_of_time_left))
 	##Chance I have to pick a more panicked option
 	var Panic_Ratio = Panic / Max_Panic
 	
 	Panic += ((2 - ratio_of_time_left - cur_value_to_desired_value) 
 					* $decision_time.wait_time) * 1
+	Panic = clamp(Panic, 0, Max_Panic)
+	
+	print("CURRENT PANIC: " + str(Panic))
 	
 	$decision_time.wait_time *=  $decision_time.wait_time * (1 - Panic_Ratio)
 	$decision_time.wait_time = clamp($decision_time.wait_time, 1, 3)
@@ -273,30 +297,6 @@ func decide_what_to_do():
 					pass
 				else:
 					ask_for_money()
-				
-
-		"""
-		Options I have:
-			
-			buy more milk production
-			
-			buy more farm / cows
-			
-			#ways my value can increase
-			
-			i buy more stuff
-			
-			i make more milk
-			
-			in other words, BUY MORE STUFF
-			
-			other things I could do
-			
-			- lower employee wages
-			
-			- 
-		"""
-		
 	else:
 		
 		##I have the money I need
@@ -304,42 +304,17 @@ func decide_what_to_do():
 		##No need to panic since I'm already good to go
 		Panic = 0
 
-	
-	"""
-	2. How much money I have to attempt to make more money
-	
-		a. I don't have enough money :(
-			
-			low panic = 
-				- ask for money
-				
-					refusal = get mad
-				
-				- emergency sell extra supplies
-			
-			high panic = 
-			
-				- act like I have enough money
-			
-		b. I have enough money :)
-		
-			- determine what I should purchase
-			
-				step one: hire more employees
-				
-				step two: buy more cows (if not enough space for cows)
-
-	3. What supplies I have
-	
-	4. How much money I am making
-	"""
-
 func _on_decision_time_timeout() -> void:
+	print()
 	decide_what_to_do()
 
 func _on_update_finances_time_timeout() -> void:
 	time_left -= $update_finances_time.wait_time
+	print()
+	print("FARM UPDATE")
 	go_to_market()
 	produce_milk()
 	take_expenses()
+	print("CURRENT MILK SUPPLY: " + str(Milk_Supply))
+	print("CURRENT FARM MONEY: " + str(Money))
 	#decide_what_to_do()

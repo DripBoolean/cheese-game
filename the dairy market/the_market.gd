@@ -68,8 +68,7 @@ func ratio_to_price_modulation(ratio : float)-> float:
 
 func modulation_to_demand_change(modulation : float) -> float:
 	
-	var demand_change : float = log(50) - log(5*modulation)
-	
+	var demand_change : float = log(50)/log(10) - log(5*modulation)/log(10)
 	return demand_change
 
 ##external investors decide to invest in the dairy market
@@ -82,7 +81,7 @@ func investment_in_farmers():
 	var total_farm_purchases = 0
 	var number_of_farm_purchases = len(Recent_Farm_Purchases)
 	for value in Recent_Farm_Purchases:
-		total_farm_purchases += Recent_Farm_Purchases
+		total_farm_purchases += value
 	
 	Recent_Farm_Purchases.clear()
 	
@@ -98,9 +97,9 @@ func investment_in_farmers():
 	
 	Recent_Changes_in_Milk_Value.clear()
 	
-	var Recent_Changes_in_Farmers_Market_Value = 0
+	var total_change_in_Farmers_Market_Value = 0
 	for value in Recent_Changes_in_Farmers_Market_Value:
-		Recent_Changes_in_Farmers_Market_Value += value
+		total_change_in_Farmers_Market_Value += value
 		
 	Recent_Changes_in_Farmers_Market_Value.clear()
 	
@@ -140,7 +139,7 @@ func investment_in_farmers():
 	chance_i_sell -= invest_change_milk
 	
 	##change chances based on the changes in Farmers Value
-	var invest_change_value = clamp(Recent_Changes_in_Farmers_Market_Value / min_change_for_max_happy, 0.5, 2)
+	var invest_change_value = clamp(total_change_in_Farmers_Market_Value / min_change_for_max_happy, 0.5, 2)
 	
 	if invest_change_value < 0:
 		invest_change_value = -1.0 / invest_change_value
@@ -159,9 +158,12 @@ func investment_in_farmers():
 		##they choose not to invest
 		amount = -base_investment_amount *  clamp(chance_i_sell / chance_i_invest, 0, 4)
 	
+	print("INVESTMENTS")
+	print("AMOUNT: " + str(amount))
+	
 	
 	global.The_Farmers.investors_invested(amount)
-	Farmers_Market_Value += Recent_Changes_in_Farmers_Market_Value + Recent_Changes_in_Farm_Profit + Recent_Farm_Purchases
+	Farmers_Market_Value += total_change_in_Farmers_Market_Value + total_recent_Milk_Price_changes + total_farm_purchases
 
 func direct_demand_change(change : float):
 	pass
@@ -173,20 +175,21 @@ func direct_price_change(change : float):
 func determine_price_of_milk():
 	var demand_to_supply_ratio = 1
 	
-	if global.The_Farmers.Supply == 0:
+	if global.The_Farmers.Milk_Supply == 0:
 		demand_to_supply_ratio = 3
 	else:
-		demand_to_supply_ratio = clamp((Demand + Fake_Demand) / global.The_Farmers.Supply, 0.5, 3)
+		demand_to_supply_ratio = clamp((Demand + Fake_Demand) / global.The_Farmers.Milk_Supply, 0.5, 3)
 	
 	Fake_Demand = clamp(Fake_Demand/2 - 50, 0, 100000)
 	
 	var price_modulation : float = ratio_to_price_modulation(demand_to_supply_ratio)
 	
 	price_modulation *= randf_range(0.9, 1.1)
-	
+	print("PRICE MODULATION: " + str(price_modulation))
 	var demand_change : float = modulation_to_demand_change(price_modulation)
 	
 	demand_change *= randf_range(0.9, 1.1)
+	print("DEMAND CHANGE: " + str(demand_change))
 	
 	var prev_price = Current_Price_of_Milk
 	Current_Price_of_Milk *= price_modulation
@@ -201,6 +204,10 @@ func determine_price_of_milk():
 	Farmers_Market_Value += current_supply_worth
 	
 	Recent_Changes_in_Farmers_Market_Value.append(current_supply_worth - previous_supply_worth)
+	print("MARKET ALTERATIONS")
+	print("DEMAND: " + str(Demand))
+	print("PRICE: " + str(Current_Price_of_Milk))
+	
 	"""	
 	make an equation that modulates the current price by the factor generated below
 	
@@ -219,7 +226,9 @@ func determine_price_of_milk():
 	"""
 
 func _on_market_update_time_timeout() -> void:
+	print()
 	determine_price_of_milk()
 
 func _on_investment_update_timeout() -> void:
+	print()
 	investment_in_farmers()
