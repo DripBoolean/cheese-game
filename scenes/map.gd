@@ -179,6 +179,10 @@ func _process(delta):
 		news_label.text = next_news_label_text
 		news_label.position.x = get_viewport().get_visible_rect().size.x
 		next_news_label_text = "None"
+	
+	if money < 0:
+		political_points -= delta
+		money -= 50000 * delta
 		
 	#milk_update_clock_time -= delta
 	#if milk_update_clock_time <= 0:
