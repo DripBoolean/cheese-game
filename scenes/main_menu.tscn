@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://dx06l7kgsioll"]
+[gd_scene load_steps=12 format=3 uid="uid://dx06l7kgsioll"]
 
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_ea4v1"]
 [ext_resource type="Texture2D" uid="uid://b5fm8otjht2gg" path="res://assets/map_Map.png" id="1_tijph"]
 [ext_resource type="Texture2D" uid="uid://du4nkgfoj1641" path="res://assets/speech_bubble.png" id="2_pdotd"]
 [ext_resource type="FontFile" uid="uid://cx8175b1rg7m6" path="res://assets/fonts/Vintage.ttf" id="3_h5tk8"]
@@ -40,6 +41,7 @@ shadow_size = 5
 shadow_offset = Vector2(0, 3.4)
 
 [node name="menu" type="CanvasLayer"]
+script = ExtResource("1_ea4v1")
 
 [node name="main_menu" type="Control" parent="."]
 layout_mode = 3
@@ -76,7 +78,7 @@ offset_bottom = 3.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="main_menu/VBoxContainer"]
+[node name="start" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
@@ -91,7 +93,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_bmni6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bf832")
 text = "Start Game"
 
-[node name="Button2" type="Button" parent="main_menu/VBoxContainer"]
+[node name="credits" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
@@ -106,7 +108,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_bmni6")
 theme_override_styles/normal = SubResource("StyleBoxFlat_bf832")
 text = "Credits"
 
-[node name="Button3" type="Button" parent="main_menu/VBoxContainer"]
+[node name="exit" type="Button" parent="main_menu/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
@@ -163,3 +165,7 @@ transparent_bg = true
 size = Vector2i(1152, 648)
 
 [node name="simple cow" parent="3d_in_2d_menu/SubViewport" instance=ExtResource("5_hipav")]
+
+[connection signal="pressed" from="main_menu/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/exit" to="." method="_on_exit_pressed"]

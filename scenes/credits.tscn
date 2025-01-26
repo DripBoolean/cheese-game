@@ -1,0 +1,207 @@
+[gd_scene load_steps=10 format=3 uid="uid://d32sksxccf1gp"]
+
+[ext_resource type="Script" path="res://scenes/credits.gd" id="1_0j2e8"]
+[ext_resource type="Texture2D" uid="uid://cpbvjvdtfs2vw" path="res://assets/Cow-irl_Cow-texture.png" id="1_fyxlx"]
+[ext_resource type="Texture2D" uid="uid://du4nkgfoj1641" path="res://assets/speech_bubble.png" id="2_j2n7c"]
+[ext_resource type="FontFile" uid="uid://cx8175b1rg7m6" path="res://assets/fonts/Vintage.ttf" id="3_fpggc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ocgjy"]
+texture = ExtResource("1_fyxlx")
+modulate_color = Color(0.67451, 0.0941176, 0.74902, 0.8)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tjj1q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5opy"]
+bg_color = Color(1, 0.776471, 0.223529, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jumh5"]
+bg_color = Color(1, 0.654902, 0.188235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhw4r"]
+bg_color = Color(1, 1, 0.94902, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[node name="credits" type="CanvasLayer"]
+script = ExtResource("1_0j2e8")
+
+[node name="main_menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ocgjy")
+
+[node name="SpeechBubble" type="Sprite2D" parent="main_menu"]
+position = Vector2(595, 930)
+scale = Vector2(1.32375, 2.41021)
+texture = ExtResource("2_j2n7c")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -87.0
+offset_right = 198.0
+offset_bottom = -19.0
+grow_vertical = 0
+
+[node name="start" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_pressed_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_focus_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_color = Color(0.390813, 0.00171066, 0.6607, 1)
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tjj1q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c5opy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jumh5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rhw4r")
+text = "Menu"
+
+[node name="dustin" type="Label" parent="main_menu"]
+layout_mode = 1
+offset_left = 317.0
+offset_top = 265.0
+offset_right = 603.0
+offset_bottom = 317.0
+rotation = -0.363995
+scale = Vector2(1.11531, 0.929316)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 50
+text = "Dustin Simpkins
+"
+
+[node name="thomas" type="Label" parent="main_menu"]
+layout_mode = 1
+offset_left = 262.0
+offset_top = 446.0
+offset_right = 498.0
+offset_bottom = 498.0
+rotation = 0.409487
+theme_override_colors/font_color = Color(1, 0.733333, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 50
+text = "Thomas King
+"
+
+[node name="violet" type="Label" parent="main_menu"]
+layout_mode = 1
+offset_left = 539.0
+offset_top = 543.0
+offset_right = 820.0
+offset_bottom = 595.0
+rotation = -0.18219
+scale = Vector2(1.06598, 1.1047)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 50
+text = "Violet Warnock
+"
+
+[node name="trinity" type="Label" parent="main_menu"]
+layout_mode = 1
+offset_left = 520.0
+offset_top = 251.0
+offset_right = 955.0
+offset_bottom = 303.0
+rotation = 0.199187
+scale = Vector2(0.934902, 1.34093)
+theme_override_colors/font_color = Color(1, 0.733333, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 42
+text = "Trinity \"Beeb\" Bartholomew
+"
+
+[node name="simon" type="Label" parent="main_menu"]
+layout_mode = 1
+offset_left = 290.0
+offset_top = 338.0
+offset_right = 544.0
+offset_bottom = 390.0
+rotation = 0.199187
+scale = Vector2(1.04226, 1.36925)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 50
+text = "Simon Rhodes"
+
+[node name="chris" type="Label" parent="main_menu"]
+layout_mode = 1
+offset_left = 623.0
+offset_top = 399.0
+offset_right = 849.0
+offset_bottom = 451.0
+rotation = -0.0357582
+scale = Vector2(0.873649, 1.76402)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 42
+text = "Chris Schneller"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="main_menu"]
+layout_mode = 0
+offset_left = 337.0
+offset_top = 38.0
+offset_right = 952.0
+offset_bottom = 137.0
+theme_override_colors/default_color = Color(0.898039, 0.705882, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_offset_x = -10
+theme_override_fonts/normal_font = ExtResource("3_fpggc")
+theme_override_font_sizes/normal_font_size = 72
+bbcode_enabled = true
+text = "The [s] Cows [/s] People"
+fit_content = true
+
+[connection signal="pressed" from="main_menu/VBoxContainer/start" to="." method="_on_start_pressed"]
