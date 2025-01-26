@@ -26,7 +26,7 @@ var cave_cheese: int = 0
 
 var cur_state = null
 
-var verbose: bool = true
+var verbose: bool = false
 
 
 # TEST VARIABLES THAT WILL BE EXPORTED LATER

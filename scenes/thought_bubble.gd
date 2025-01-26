@@ -23,5 +23,5 @@ func _on_yes_pressed():
 
 
 func _on_no_pressed():
-	map.enact_policy(no_outcome)
+	map.enact_request(no_outcome)
 	queue_free()

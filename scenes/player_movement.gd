@@ -26,7 +26,6 @@ func _process(delta):
 	
 	dairy_market_health -= delta * 0.05
 	
-	print()
 	#dairy_market_health -= delta * 0.01
 	
 	

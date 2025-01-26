@@ -9,12 +9,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_e5ivt")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
 offset_top = -125.0
 offset_right = 127.0
+mouse_filter = 1
 
 [node name="Yes" type="Button" parent="."]
 layout_mode = 0
@@ -22,6 +24,7 @@ offset_left = 28.0
 offset_top = -61.0
 offset_right = 58.0
 offset_bottom = -30.0
+mouse_filter = 1
 text = "👍"
 
 [node name="No" type="Button" parent="."]
@@ -30,6 +33,7 @@ offset_left = 69.0
 offset_top = -60.0
 offset_right = 99.0
 offset_bottom = -29.0
+mouse_filter = 1
 text = "👎"
 
 [node name="Label" type="Label" parent="."]
