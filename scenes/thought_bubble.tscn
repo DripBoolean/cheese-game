@@ -12,7 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_e5ivt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -20,14 +20,8 @@ position = Vector2(55, -28)
 scale = Vector2(0.200585, 0.200585)
 texture = ExtResource("2_hosd2")
 
-[node name="Panel" type="Panel" parent="."]
-visible = false
-layout_mode = 0
-offset_top = -125.0
-offset_right = 127.0
-mouse_filter = 1
-
 [node name="Yes" type="Button" parent="."]
+z_index = 1
 layout_mode = 0
 offset_left = 19.0
 offset_top = -52.0
@@ -56,9 +50,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 10
 text = "Placeholder"
 horizontal_alignment = 1
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
-texture = ExtResource("2_hosd2")
 
 [connection signal="pressed" from="Yes" to="." method="_on_yes_pressed"]
 [connection signal="pressed" from="No" to="." method="_on_no_pressed"]

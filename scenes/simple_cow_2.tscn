@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs3imay4gq6lh"]
+
+[ext_resource type="Script" path="res://scenes/simple_cow_2.gd" id="1_dr6k1"]
+[ext_resource type="PackedScene" uid="uid://cadyo4w1n4oex" path="res://assets/Cow-irl.glb" id="1_eqx65"]
+
+[node name="simple_cow2" type="Node3D"]
+script = ExtResource("1_dr6k1")
+
+[node name="Cow-irl3" parent="." instance=ExtResource("1_eqx65")]
+transform = Transform3D(0.905563, -0.0346315, 0, 0.0417549, 0.751074, 0, 0, 0, 1.01448, 0.328425, 0, 0)
+
+[node name="Cow-irl2" parent="." instance=ExtResource("1_eqx65")]
+transform = Transform3D(0.979105, 0.0994436, -0.177381, -0.0968648, 0.995028, 0.0231609, 0.178802, -0.00549502, 0.98387, -0.397995, 0, 0)
+
+[node name="Cow-irl" parent="." instance=ExtResource("1_eqx65")]
+transform = Transform3D(1, 0, 0, 0, 0.99011, 0.140296, 0, -0.140296, 0.99011, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Cow-irl"]
+transform = Transform3D(0.995239, 0.0839948, 0.0494371, -0.0798783, 0.993584, -0.0800591, -0.0558445, 0.075729, 0.995563, 0.140092, 0.405825, 1.04382)
+projection = 1
+size = 0.929005
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Cow-irl"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.439244, 1.1204)
+light_color = Color(0.635294, 0, 0.0431373, 1)
