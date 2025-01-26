@@ -178,7 +178,11 @@ func buy_something(i_am_panicking : bool = false):
 
 func place_building(building_to_place : PackedScene):
 	var location = possible_placement_locations.pop_at(randi_range(0, len(possible_placement_locations) - 1))
-	update_placeable_locations(location)
+	
+	if location == null:
+		update_placeable_locations(location)
+	else:
+		location = Vector2(0, -300)
 	
 	if building_to_place == farm_scene:
 		print("FARMERS BOUGHT FARM")
