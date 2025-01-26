@@ -75,7 +75,7 @@ func _ready() -> void:
 		grid.append(columun)
 	
 	grid[farm_location_x][farm_location_y] = 1
-	#$farm_house.position = Vector3(farm_location_x * tile_width + tile_width/2 ,0, farm_location_y * tile_height + tile_height/2)
+	$farm_house.position = Vector3(farm_location_x * tile_width + tile_width/2 ,0, farm_location_y * tile_height + tile_height/2)
 	update_placeable_locations(Vector2(farm_location_x, farm_location_y))
 	
 	for i in range(farms):
@@ -117,7 +117,8 @@ func place_cow():
 		if farm.num_cow_slots_available > 0:
 			farm.num_cow_slots_available -= 1
 			farm.add_child(new_cow)
-			new_cow.position = Vector3(randf_range(-tile_width/2, tile_width/2), 0,randf_range(-tile_height/2, tile_height/2))
+			new_cow.position = Vector3(randf_range(-tile_width/2.0, tile_width/2.0), 0,
+										randf_range(-tile_height/2.0, tile_height/2.0))
 			break
 	#cows+=1
 
@@ -129,7 +130,6 @@ func buy_something(i_am_panicking : bool = false):
 	#if I make more raw milk than I produce, buy a factory
 	if Raw_Milk_I_Produce > Milk_I_Can_Refine:
 		#buy a new factory to compensate
-		#print("a")
 		Money -= factory_value
 		factories += 1
 		global.The_Market.Farmers_Market_Value += factory_value

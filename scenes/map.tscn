@@ -73,6 +73,7 @@ offset_right = 146.0
 offset_bottom = 148.0
 
 [node name="TheFarmers" parent="." instance=ExtResource("5_whmgt")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.10251, 0, -3.55231)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bxdme")
@@ -151,7 +152,7 @@ type = "Suburb"
 area = "suburb"
 
 [node name="Building15" parent="Buildings" instance=ExtResource("8_uri7x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.55245, 0, -6.28477)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80409, 0, -6.61346)
 type = "Farm"
 area = "farm"
 
@@ -191,11 +192,11 @@ type = "Suburb"
 area = "suburb"
 
 [node name="Building23" parent="Buildings" instance=ExtResource("8_uri7x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7494, 0, -6.40259)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.80952, 0, -5.03065)
 type = "Farm"
 area = "farm"
 
 [node name="Building24" parent="Buildings" instance=ExtResource("8_uri7x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15437, 0, -6.50449)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.9478, 0, -3.49433)
 type = "Farm"
 area = "farm"

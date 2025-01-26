@@ -4,22 +4,23 @@
 [ext_resource type="PackedScene" uid="uid://b74mvr48gyxc6" path="res://assets/Silo.glb" id="2_aanx4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_c53b3"]
-size = Vector3(7, 2, 7)
+size = Vector3(0.7, 0.2, 0.7)
 
 [node name="Factory" type="Node3D"]
 script = ExtResource("1_322b5")
 
 [node name="Silo" parent="." instance=ExtResource("2_aanx4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.42835)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.147849, 0, -0.0910891)
 
 [node name="Silo2" parent="." instance=ExtResource("2_aanx4")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1.17107, 0, 0.0885701)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.012442, 0, -0.0761836)
 
 [node name="Silo3" parent="." instance=ExtResource("2_aanx4")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.21438, 0, 0.207637)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0.0184896, 0, 0.08452)
 
 [node name="Silo4" parent="." instance=ExtResource("2_aanx4")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.12647, 0, 2.64897)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, -0.137849, 0, 0.0786425)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("BoxMesh_c53b3")
