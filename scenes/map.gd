@@ -19,6 +19,7 @@ var cheese = 0.0
 var cheese_max = 100.0
 var tax_income = 100000.0
 var city_health = 100.0
+var suburb_health = 100.0
 var time_till_next_election = 60.0
 var request_interval = 3.0
 var time_since_last_request = 0.0
@@ -31,6 +32,15 @@ var healthy_suburb_buildings = 0
 var num_farm_buildings = 0
 var healthy_farm_buildings = 0
 
+func format_number(n: int) -> String:
+	if n >= 1_000_000:
+		var i:float = snapped(float(n)/1000000, .01)
+		return str(i).replace(",", ".") + "M"
+	elif n >= 1_000:
+		var i:float = snapped(float(n)/1000, .01)
+		return str(i).replace(",", ".") + "k"
+	else:
+		return str(n)
 
 func spawn_buildings():
 	loaded_buildings = $Buildings.get_children()
@@ -64,9 +74,11 @@ func enact_request(request_outcome):
 	if request_outcome == "give_city_money":
 		political_points += 2.0
 		money -= 1000000.0
+		city_health += 25.0
 	if request_outcome == "give_suburb_money":
 		political_points += 1.0
 		money -= 2000000.0
+		suburb_health += 25.0
 	if request_outcome == "buy_milk":
 		$TheFarmers.government_bought_milk(5000)
 		money -= 5000000.0
@@ -133,14 +145,20 @@ func _process(delta):
 	
 	$UI/CanvasLayer/HUD/ProgressBar.value = political_points
 	$UI/Time.text = "Time: %f" % [time_till_next_election]
-	$UI/Money.text = "%f" % [money]
-	$UI/Cheese.text = "%f" % [cheese]
+	$UI/Money.text = "%s" % [format_number(money)]
+	$UI/Cheese.text = "%d" % [int(cheese)]
 	
+	money += tax_income * delta * (0.1 + (0.5 * city_health / 100.0) + (0.4 * suburb_health / 100.0))
 	city_health -= 20.0 * delta
 	if city_health <= 0.0:
 		city_health = 0.0
 	if city_health >= 100.0:
 		city_health = 100.0
+	suburb_health -= 20.0 * delta
+	if suburb_health <= 0.0:
+		suburb_health = 0.0
+	if suburb_health >= 100.0:
+		suburb_health = 100.0
 	var new_healthy_city_buildings = int((city_health / 100.0) * num_city_buildings)
 	var delta_healthy_city_buildings = new_healthy_city_buildings - healthy_city_buildings
 	if delta_healthy_city_buildings > 0:
@@ -148,6 +166,13 @@ func _process(delta):
 	if delta_healthy_city_buildings < 0:
 		damage_buildings("city", -delta_healthy_city_buildings)
 	healthy_city_buildings = new_healthy_city_buildings
+	var new_healthy_suburb_buildings = int((suburb_health / 100.0) * num_suburb_buildings)
+	var delta_healthy_suburb_buildings = new_healthy_suburb_buildings - healthy_suburb_buildings
+	if delta_healthy_suburb_buildings > 0:
+		repair_buildings("suburb", delta_healthy_suburb_buildings)
+	if delta_healthy_suburb_buildings < 0:
+		damage_buildings("suburb", -delta_healthy_suburb_buildings)
+	healthy_suburb_buildings = new_healthy_suburb_buildings
 		
 	
 	time_since_last_request += delta
