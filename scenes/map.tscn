@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://u5yt3wfkusk4"]
+[gd_scene load_steps=12 format=3 uid="uid://u5yt3wfkusk4"]
 
 [ext_resource type="Script" path="res://scenes/map.gd" id="1_y30s5"]
 [ext_resource type="PackedScene" uid="uid://ce6snh3sed8s" path="res://the dairy market/The_Market.tscn" id="2_uvx7c"]
@@ -6,8 +6,8 @@
 [ext_resource type="Script" path="res://event_dispatcher/event_dispatcher.gd" id="3_xe1g8"]
 [ext_resource type="PackedScene" uid="uid://bhevxu0fx6u3p" path="res://scenes/hud.tscn" id="5_gj2mf"]
 [ext_resource type="PackedScene" uid="uid://co5d7ar3kc1h4" path="res://the dairy market/The_Farmers.tscn" id="5_whmgt"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_35lqr"]
+[ext_resource type="PackedScene" uid="uid://ddg0sn3jpjrlp" path="res://assets/map.glb" id="7_24jso"]
+[ext_resource type="PackedScene" uid="uid://b2wb1tgwan7he" path="res://scenes/building.tscn" id="8_uri7x"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nthmp"]
 sky_top_color = Color(0.325153, 0.414749, 0.783198, 1)
@@ -29,10 +29,6 @@ script = ExtResource("1_y30s5")
 
 [node name="Player" parent="." instance=ExtResource("2_yacs5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.28101, 4.81822, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
-mesh = SubResource("PlaneMesh_35lqr")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.850141, -0.345514, 0.397342, 0, 0.754606, 0.656178, -0.526555, -0.557843, 0.641522, 0, 0, 0)
@@ -80,3 +76,126 @@ offset_bottom = 148.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bxdme")
+
+[node name="map" parent="." instance=ExtResource("7_24jso")]
+transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, 0, -0.336134, 0)
+
+[node name="Buildings" type="Node3D" parent="."]
+
+[node name="Building5" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0305904, 0, 2.30471)
+type = "Office3"
+area = "city"
+
+[node name="Building" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.93345, -0.0021556, 0)
+type = "Office4"
+area = "city"
+
+[node name="Building2" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.89793, -0.0021556, 0.0387125)
+type = "Office3"
+area = "city"
+
+[node name="Building3" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.17418, -0.0021556, 2.2405)
+type = "Office2"
+area = "city"
+
+[node name="Building4" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0742958)
+type = "Office3"
+area = "city"
+
+[node name="Building6" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.17399)
+type = "Office3"
+area = "city"
+
+[node name="Building7" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.88891, 0, 4.26859)
+type = "Office3"
+area = "city"
+
+[node name="Building8" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.77846, 0, 4.24475)
+type = "Office4"
+area = "city"
+
+[node name="Building9" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75967, 0, 6.23994)
+type = "Office4"
+area = "city"
+
+[node name="Building11" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.73984, 0, -3.86255)
+area = "city"
+
+[node name="Building10" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.79066, 0, -5.93691)
+type = "Office2"
+area = "city"
+
+[node name="Building12" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.95212, 0, -3.83622)
+area = "city"
+
+[node name="Building13" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.00876, 4.76837e-07, -1.91144)
+type = "Office2"
+area = "city"
+
+[node name="Building14" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.38883, 0, 1.91319)
+type = "Suburb"
+area = "suburb"
+
+[node name="Building15" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.55245, 0, -6.28477)
+type = "Farm"
+area = "farm"
+
+[node name="Building16" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.23477, 0, 1.88955)
+type = "Suburb"
+area = "suburb"
+
+[node name="Building17" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.37014, 0, 0.741794)
+type = "Suburb"
+area = "suburb"
+
+[node name="Building18" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.29519, 0, 0.739671)
+type = "Suburb"
+area = "suburb"
+
+[node name="Building19" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.29338, 0, -0.470183)
+type = "Suburb"
+area = "suburb"
+
+[node name="Building20" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.11615, 0, -0.486588)
+type = "Suburb"
+area = "suburb"
+
+[node name="Building21" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.30228, 0, -1.56097)
+type = "Suburb"
+area = "suburb"
+
+[node name="Building22" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.06441, 0, -1.58709)
+type = "Suburb"
+area = "suburb"
+
+[node name="Building23" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.7494, 0, -6.40259)
+type = "Farm"
+area = "farm"
+
+[node name="Building24" parent="Buildings" instance=ExtResource("8_uri7x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.15437, 0, -6.50449)
+type = "Farm"
+area = "farm"
