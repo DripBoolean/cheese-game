@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccfufiqge3ea1"]
+[gd_scene load_steps=3 format=3 uid="uid://bbv37u7vp3laj"]
 
 [ext_resource type="Script" path="res://event_dispatcher/simple_cow.gd" id="1_h0fts"]
 [ext_resource type="PackedScene" uid="uid://cadyo4w1n4oex" path="res://assets/Cow-irl.glb" id="1_s7ev1"]
