@@ -28,6 +28,10 @@ var cur_state = null
 
 var verbose: bool = false
 
+# RANDOM EVENT VARIABLES
+var random_event_wait_ticks: float = 5.0
+var event_enum := {"mad":0.0, "lactose":0.0, "mania":0.0, "socialist":0.0, "facebook":0.0,
+"exodus":0.0, "enter":0.0, "crime":0.0}
 
 # TEST VARIABLES THAT WILL BE EXPORTED LATER
 var demand: float = 0.99
@@ -151,6 +155,7 @@ func update() -> void:
 			cAM_range = 0.9
 			sBC_range = 0.1
 			sAM_range = 0.8
+			r_event = _random_events([1,1+int(lactose),1+int(mania),2,2.1,2.1,2,2])
 		"P_underE": # BAD P, GOOD M, HIGH CHEESE, LOW CAVE (UNCOMMON)
 			fAM_range = 0.35
 			fSC_range = 0.95
@@ -158,6 +163,7 @@ func update() -> void:
 			cAM_range = 0.6
 			sBC_range = 0.7
 			sAM_range = 0.44
+			r_event = _random_events([1,1+int(lactose),1+int(mania),2,2.1,2.1,2,2])
 		"P_overF": # BAD POLITICS, GOOD MONEY, LOW CHEESE, HIGH CAVE CHEESE (RARE)
 			fAM_range = 0.7
 			fSC_range = 0.7
@@ -165,6 +171,7 @@ func update() -> void:
 			cAM_range = 0.5
 			sBC_range = 0.2
 			sAM_range = 0.4
+			r_event = _random_events([1,1+int(lactose),1+int(mania),2,2.1,2.1,2,2])
 		"P_underF": # GAME START
 			fAM_range = 0.75
 			fSC_range = 0.9
@@ -172,6 +179,7 @@ func update() -> void:
 			cAM_range = 0.2
 			sBC_range = 0.6
 			sAM_range = 0.1
+			r_event = _random_events([1,1+int(lactose),1+int(mania),2,2.1,2.1,2,2])
 		"P_overG": # BAD P, BAD M, HIGH CH, HIGH CA
 			fAM_range = 0.9
 			fSC_range = 0.9
@@ -179,6 +187,7 @@ func update() -> void:
 			cAM_range = 0.9
 			sBC_range = 0.1
 			sAM_range = 0.8
+			r_event = _random_events([1,1+int(lactose),1+int(mania),2,2.1,2.1,2,2])
 		"P_underG": # BAD P, BAD M, HIGH CH, LOW CA
 			fAM_range = 0.8
 			fSC_range = 0.9
@@ -186,6 +195,7 @@ func update() -> void:
 			cAM_range = 0.5
 			sBC_range = 0.4
 			sAM_range = 0.25
+			r_event = _random_events([1,1+int(lactose),1+int(mania),2,2.1,2.1,2,2])
 		"P_overH": # BAD P, BAD M, LOW CH, HIGH CA
 			fAM_range = 0.5
 			fSC_range = 0.9
@@ -193,6 +203,7 @@ func update() -> void:
 			cAM_range = 0.5
 			sBC_range = 0.6
 			sAM_range = 0.15
+			r_event = _random_events([1,1+int(lactose),1+int(mania),2,2.1,2.1,2,2])
 		"P_underH": # BAD P, BAD M, LOW CH, LOW CA
 			fAM_range = 0.2
 			fSC_range = 0.99
@@ -200,14 +211,14 @@ func update() -> void:
 			cAM_range = 0.1
 			sBC_range = 0.9
 			sAM_range = 0.1
-	
-	
-	fAskMoney = randf() < fAM_range + panic
+			r_event = _random_events([1,1+int(lactose),1+int(mania),2,2.1,2.1,2,2])
+			
+	fAskMoney = randf() < ( fAM_range + panic )
 	fSellCheese = randf() < fSC_range
-	cBuyCheese = randf() < ( cBC_range - (cBC_range * ( 1 - demand) ) )
-	cAskMoney = randf() < cAM_range
-	sBuyCheese = randf() < ( sBC_range - (sBC_range * ( 1 - demand) ) )
-	sAskMoney = randf() < sAM_range
+	cBuyCheese = randf() < ( ( cBC_range - (cBC_range * ( 1 - demand) ) ) - event_enum["lactose"] + event_enum["mania"] )
+	cAskMoney = randf() < ( cAM_range + event_enum["socialist"] )
+	sBuyCheese = randf() < ( ( sBC_range - (sBC_range * ( 1 - demand) ) ) - event_enum["lactose"] + event_enum["mania"] )
+	sAskMoney = randf() < ( sAM_range + event_enum["facebook"] )
 	
 	if fAskMoney:
 		map.spawn_bubble("farm", "farm_ask_money")
@@ -221,6 +232,31 @@ func update() -> void:
 		map.spawn_bubble("city", "city_buy_cheese")
 	if sBuyCheese:
 		map.spawn_bubble("suburb", "suburb_buy_cheese")
+		
+	# RANDOM EVENTS +++++++++++++++++++++
+	if random_event_wait_ticks <= 0.0:
+		#print("START")
+		event_enum = {"mad":0.0, "lactose":0.0, "mania":0.0, "socialist":0.0, 
+		"facebook":0.0, "exodus":0.0, "enter":0.0, "crime":0.0}
+		if r_event != "null":
+			print(r_event)
+			event_enum[r_event] = 0.4
+			if r_event == "crime":
+				# Lower city health
+				pass
+			elif r_event == "mad":
+				# Put panic in farm
+				pass
+			elif r_event == "exodus":
+				# Decrease tax revenue
+				pass
+			elif r_event == "enterance":
+				# Increase tax revenue
+				pass
+		random_event_wait_ticks = 5.0
+	else:
+		random_event_wait_ticks = random_event_wait_ticks - 1.0
+	# +++++++++++++++++++++++++++++++++++++
 	
 	if verbose:
 		print(cur_state)
