@@ -239,8 +239,7 @@ func update() -> void:
 			if r_event == "crime":
 				map.city_health -= 25
 			elif r_event == "mad":
-				# Put panic in farm
-				pass
+				global.The_Farmers.Panic += 75
 			elif r_event == "exodus":
 				map.tax_income -= 10_000.0
 			elif r_event == "enterance":
