@@ -165,6 +165,12 @@ func investment_in_farmers():
 		amount = -base_investment_amount *  clamp(chance_i_sell / chance_i_invest, 0, 2)
 	
 	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
+	print("INVESTMENTS")
 	print("AMOUNT: " + str(amount))
 	print(chance_i_invest)
 	print(chance_i_sell)
@@ -187,8 +193,9 @@ func determine_price_of_milk():
 	else:
 		demand_to_supply_ratio = clamp((Demand + Fake_Demand) / global.The_Farmers.Milk_Supply, 0.75, 2)
 	
+	print("FAKE DEMAND: " + str(Fake_Demand))
 	Fake_Demand = clamp(Fake_Demand - global.The_Farmers.Milk_Supply/2, 0, 100000)
-	
+	print("FAKE DEMAND CHANGE: " + str(global.The_Farmers.Milk_Supply/2))
 	var price_modulation : float = ratio_to_price_modulation(demand_to_supply_ratio)
 	
 	price_modulation *= randf_range(0.9, 1.1)
@@ -212,7 +219,6 @@ func determine_price_of_milk():
 	
 	Recent_Changes_in_Farmers_Market_Value.append(current_supply_worth - previous_supply_worth)
 	print("DEMAND: " + str(Demand))
-	print("FAKE DEMAND: " + str(Fake_Demand))
 	print("PRICE: " + str(Current_Price_of_Milk))
 	print("FARMERS VALUE: " + str(Farmers_Market_Value))
 func _on_market_update_time_timeout() -> void:
