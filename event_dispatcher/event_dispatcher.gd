@@ -239,7 +239,7 @@ func update() -> void:
 		event_enum = {"mad":0.0, "lactose":0.0, "mania":0.0, "socialist":0.0, 
 		"facebook":0.0, "exodus":0.0, "enter":0.0, "crime":0.0}
 		if r_event != "null":
-			print(r_event)
+			#print(r_event)
 			event_enum[r_event] = 0.4
 			if r_event == "crime":
 				# Lower city health
