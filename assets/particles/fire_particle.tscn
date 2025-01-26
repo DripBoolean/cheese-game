@@ -19,7 +19,6 @@ material = SubResource("StandardMaterial3D_dcxya")
 [node name="FireParticle" type="Node3D"]
 
 [node name="fire" type="GPUParticles3D" parent="."]
-visible = false
 amount = 200
 lifetime = 0.5
 randomness = 1.0
