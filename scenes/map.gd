@@ -34,7 +34,7 @@ var healthy_farm_buildings = 0
 
 var milk_update_clock_time = 2.0
 
-var next_news_label_text = "New Mayor Elected!           Are we Screwed? 💀"
+var next_news_label_text = "BREAKING NEWS: New Mayor Elected!           Are we Screwed? 💀"
 
 @onready var news_label = $UI/ScrollerBar/NewsLabel
 
@@ -75,23 +75,27 @@ func spawn_buildings():
 func enact_request(request_outcome):
 	if request_outcome == "give_farm_money":
 		political_points += 5.0
-		money -= 1000000.0
+		money -= 400000.0
 		$TheFarmers.government_gave_subsidy(100000)
 	if request_outcome == "give_city_money":
 		political_points += 2.0
-		money -= 1000000.0
+		money -= 300000.0
 		city_health += 25.0
 	if request_outcome == "give_suburb_money":
 		political_points += 1.0
-		money -= 1000000.0
+		money -= 300000.0
 		suburb_health += 25.0
 	if request_outcome == "buy_milk":
 		$TheFarmers.government_bought_milk(100000)
 		money -= 1000000.0
 		cheese += 4
 	if request_outcome == "sell_cheese":
-		money += 6000000.0
-		cheese -= 2
+		if cheese >= 2:
+			money += 2000000.0
+			cheese -= 2
+		else:
+			next_news_label_text = "BREAKING NEWS: Mayor Attempts to Sell Cheese He Dosn't Have lmfao"
+			political_points -= 1.0
 		
 func spawn_bubble(area, request):
 	var building
@@ -143,6 +147,7 @@ func _ready():
 	news_label.text = next_news_label_text
 	news_label.position.x = -1000
 	spawn_buildings()
+	$TheFarmers.time_left = time_till_next_election
 
 
 
@@ -161,7 +166,8 @@ func _process(delta):
 			get_tree().change_scene_to_file("res://scenes/loss_screen.tscn")
 		political_points = 0.0
 		time_till_next_election = 60.0
-		next_news_label_text = "Mayor Relected... somehow..."
+		$TheFarmers.time_left = time_till_next_election
+		next_news_label_text = "BREAKING NEWS: Mayor Relected..... somehow"
 	
 	news_label.position.x -= 200.0 * delta
 	
@@ -182,12 +188,12 @@ func _process(delta):
 		
 	
 	money += tax_income * delta * (0.1 + (0.5 * city_health / 100.0) + (0.4 * suburb_health / 100.0))
-	city_health -= 20.0 * delta
+	city_health -= 3.0 * delta
 	if city_health <= 0.0:
 		city_health = 0.0
 	if city_health >= 100.0:
 		city_health = 100.0
-	suburb_health -= 20.0 * delta
+	suburb_health -= 3.0 * delta
 	if suburb_health <= 0.0:
 		suburb_health = 0.0
 	if suburb_health >= 100.0:

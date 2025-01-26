@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://deisvjis8mplo"
+path="res://.godot/imported/Axletree - The Silent Grove.mp3-5f413e607edd7f4972706f6837f04808.mp3str"
+
+[deps]
+
+source_file="res://assets/Sounds/Axletree - The Silent Grove.mp3"
+dest_files=["res://.godot/imported/Axletree - The Silent Grove.mp3-5f413e607edd7f4972706f6837f04808.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

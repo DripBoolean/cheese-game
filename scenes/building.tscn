@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b2wb1tgwan7he"]
+[gd_scene load_steps=19 format=3 uid="uid://b2wb1tgwan7he"]
 
 [ext_resource type="Script" path="res://scenes/building.gd" id="1_x14ni"]
 [ext_resource type="PackedScene" uid="uid://cpi2my4pg45nd" path="res://assets/Tower1.glb" id="2_r2s5d"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://jcdj3rtrhfps" path="res://assets/suburb.glb" id="10_2bobf"]
 [ext_resource type="PackedScene" uid="uid://doj2uqyts8opo" path="res://assets/suburb-Destroyed.glb" id="11_vx2x0"]
 [ext_resource type="PackedScene" uid="uid://bkp2db2i0gwpg" path="res://assets/farm-house.glb" id="12_f2kxu"]
+[ext_resource type="PackedScene" uid="uid://b42uvjjbqp4o7" path="res://assets/particles/fire_particle.tscn" id="13_qecyj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_4lree"]
 
@@ -84,6 +85,9 @@ visible = false
 
 [node name="farm-house" parent="." instance=ExtResource("12_f2kxu")]
 transform = Transform3D(-2.18557e-09, 0, -0.05, 0, 0.05, 0, 0.05, 0, -2.18557e-09, 0, 0, 0)
+visible = false
+
+[node name="FireParticle" parent="." instance=ExtResource("13_qecyj")]
 visible = false
 
 [editable path="Tower1"]

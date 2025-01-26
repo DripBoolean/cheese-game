@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://dx06l7kgsioll"]
+[gd_scene load_steps=13 format=3 uid="uid://dx06l7kgsioll"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_ea4v1"]
 [ext_resource type="Texture2D" uid="uid://b5fm8otjht2gg" path="res://assets/map_Map.png" id="1_tijph"]
 [ext_resource type="Texture2D" uid="uid://du4nkgfoj1641" path="res://assets/speech_bubble.png" id="2_pdotd"]
 [ext_resource type="FontFile" uid="uid://cx8175b1rg7m6" path="res://assets/fonts/Vintage.ttf" id="3_h5tk8"]
 [ext_resource type="Script" path="res://event_dispatcher/3d_in_2d_menu.gd" id="4_2frsk"]
-[ext_resource type="PackedScene" uid="uid://ccfufiqge3ea1" path="res://scenes/simple_cow.tscn" id="5_hipav"]
+[ext_resource type="AudioStream" uid="uid://bn8gabclyg70v" path="res://assets/Sounds/stars_and_stripes.mp3" id="4_cb63e"]
+[ext_resource type="PackedScene" path="res://scenes/simple_cow.tscn" id="5_hipav"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_btbmg"]
 texture = ExtResource("1_tijph")
@@ -90,6 +91,10 @@ theme_override_fonts/font = ExtResource("3_h5tk8")
 theme_override_font_sizes/font_size = 32
 text = "Presented by Cows with Keyboards
 "
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="main_menu"]
+stream = ExtResource("4_cb63e")
+autoplay = true
 
 [node name="stuff" type="Control" parent="."]
 layout_mode = 3
