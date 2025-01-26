@@ -1,0 +1,148 @@
+[gd_scene load_steps=11 format=3 uid="uid://swwuyqlh66ou"]
+
+[ext_resource type="Script" path="res://scenes/music_credit.gd" id="1_hihed"]
+[ext_resource type="Texture2D" uid="uid://cpbvjvdtfs2vw" path="res://assets/Cow-irl_Cow-texture.png" id="2_hu4p7"]
+[ext_resource type="Texture2D" uid="uid://du4nkgfoj1641" path="res://assets/speech_bubble.png" id="3_8hdws"]
+[ext_resource type="FontFile" uid="uid://cx8175b1rg7m6" path="res://assets/fonts/Vintage.ttf" id="4_07up8"]
+[ext_resource type="AudioStream" uid="uid://b57k7t6yqifrt" path="res://assets/Sounds/Jahzzar - Railroad's Whiskey Co.mp3" id="5_g8mlo"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1w76h"]
+texture = ExtResource("2_hu4p7")
+modulate_color = Color(0.0731533, 0.150612, 0.104638, 0.8)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jfnc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fs5kp"]
+bg_color = Color(1, 0.776471, 0.223529, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mutpq"]
+bg_color = Color(1, 0.654902, 0.188235, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_38gk3"]
+bg_color = Color(1, 1, 0.94902, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 5
+shadow_offset = Vector2(0, 3.4)
+
+[node name="music_credit" type="CanvasLayer"]
+script = ExtResource("1_hihed")
+
+[node name="main_menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_1w76h")
+
+[node name="Control" type="Control" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpeechBubble" type="Sprite2D" parent="main_menu/Control"]
+position = Vector2(39, 626)
+scale = Vector2(1.32375, 2.41021)
+texture = ExtResource("3_8hdws")
+
+[node name="violet" type="Label" parent="main_menu/Control"]
+layout_mode = 1
+offset_left = -506.0
+offset_top = -186.0
+offset_right = -225.0
+offset_bottom = -134.0
+rotation = -0.00231382
+scale = Vector2(1.06598, 1.1047)
+theme_override_colors/font_color = Color(1, 0.403922, 0.2, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 5
+theme_override_fonts/font = ExtResource("4_07up8")
+theme_override_font_sizes/font_size = 15
+text = "Violet Warnock
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -87.0
+offset_right = 198.0
+offset_bottom = -19.0
+grow_vertical = 0
+
+[node name="start" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_pressed_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_focus_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_color = Color(0.390813, 0.00171066, 0.6607, 1)
+theme_override_fonts/font = ExtResource("4_07up8")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_5jfnc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_fs5kp")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mutpq")
+theme_override_styles/normal = SubResource("StyleBoxFlat_38gk3")
+text = "Back"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="main_menu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -241.0
+offset_top = 38.0
+offset_right = 374.0
+offset_bottom = 137.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.898039, 0.705882, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_offset_x = -10
+theme_override_fonts/normal_font = ExtResource("4_07up8")
+theme_override_font_sizes/normal_font_size = 72
+bbcode_enabled = true
+text = "The Music People"
+fit_content = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="main_menu"]
+stream = ExtResource("5_g8mlo")
+autoplay = true
+
+[connection signal="pressed" from="main_menu/VBoxContainer/start" to="." method="_on_start_pressed"]

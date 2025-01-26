@@ -203,6 +203,21 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_jumh5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_rhw4r")
 text = "Menu"
 
+[node name="start2" type="Button" parent="main_menu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_hover_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_pressed_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_focus_color = Color(0.392157, 0, 0.658824, 1)
+theme_override_colors/font_color = Color(0.390813, 0.00171066, 0.6607, 1)
+theme_override_fonts/font = ExtResource("3_fpggc")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tjj1q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_c5opy")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_jumh5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rhw4r")
+text = "Music Stuff"
+
 [node name="RichTextLabel" type="RichTextLabel" parent="main_menu"]
 layout_mode = 1
 anchors_preset = 5
@@ -228,3 +243,4 @@ stream = ExtResource("5_wh1gm")
 autoplay = true
 
 [connection signal="pressed" from="main_menu/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="main_menu/VBoxContainer/start2" to="." method="_on_start_2_pressed"]
