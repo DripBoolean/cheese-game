@@ -1,10 +1,36 @@
 extends CharacterBody3D
 
+var money = 1000
+var peepee = 50
+var time_till_next_election = 60.0
+
+var dairy_market_health = 1.0
+var dairy_market_demand = 0.0
+var poor_health = 1.0
+var wealthy_health = 1.0
 
 const SPEED = 5.0
 const SCROLL_SPEED = 1.0
 @onready var camera_ref = $Camera3D
 
+func enact_request(policy_name):
+	if policy_name == "Do Nothing":
+		return
+	
+func _process(delta):
+	time_till_next_election -= delta
+	
+	poor_health +=  (dairy_market_health - 1) * 0.01 * delta
+	
+	wealthy_health += (dairy_market_health - 1) * 0.05 * delta
+	
+	dairy_market_health -= delta * 0.05
+	
+	print()
+	#dairy_market_health -= delta * 0.01
+	
+	
+	$UI/Stats.text = "Money: %d   PP: %d   Time: %f    poor: %f    wealthy %f    dairy %f" % [money, peepee, time_till_next_election, poor_health, wealthy_health, dairy_market_health]
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.

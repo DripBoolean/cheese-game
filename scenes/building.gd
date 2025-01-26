@@ -3,12 +3,13 @@ extends Node3D
 
 var type = "Office"
 var in_good_form = true
-
+var map = null
 var bubble = null
 
-func have_thought():
+func have_thought(request_name):
 	var new_bubble = load("res://scenes/thought_bubble.tscn").instantiate()
-	
+	new_bubble.map = map
+	new_bubble.request = request_name
 	bubble = new_bubble
 	add_child(new_bubble)
 

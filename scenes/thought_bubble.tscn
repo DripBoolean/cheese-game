@@ -39,3 +39,6 @@ offset_top = -106.0
 offset_right = 111.0
 offset_bottom = -69.0
 text = "Placeholder"
+
+[connection signal="pressed" from="Yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="No" to="." method="_on_no_pressed"]

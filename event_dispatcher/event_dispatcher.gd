@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 @export_enum("START","Money_over","Money_under","Cheese_overA","Cheese_overB") var states: String
 
@@ -48,8 +48,8 @@ func _random_events( weight_array ) -> String:
 	else:
 		return "null"
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+
+func update() -> void:
 	var scorer1: bool = money >= 5_000_000.0
 	var scorer2: bool = cheese/cheese_max >= 0.75
 	var scorer3: bool = cave_cheese > 1
