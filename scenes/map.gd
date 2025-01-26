@@ -118,7 +118,6 @@ func damage_buildings(type, amount):
 	
 		sample_building.damage()
 		buildings_damaged += 1
-		print(buildings_damaged)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
