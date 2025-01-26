@@ -143,6 +143,7 @@ func _ready():
 	news_label.text = next_news_label_text
 	news_label.position.x = -1000
 	spawn_buildings()
+	$TheFarmers.time_left = time_till_next_election
 
 
 
@@ -161,7 +162,8 @@ func _process(delta):
 			get_tree().change_scene_to_file("res://scenes/loss_screen.tscn")
 		political_points = 0.0
 		time_till_next_election = 60.0
-		next_news_label_text = "Mayor Relected... somehow..."
+		$TheFarmers.time_left = time_till_next_election
+		next_news_label_text = "BREAKING NEWS: Mayor Relected..... somehow"
 	
 	news_label.position.x -= 200.0 * delta
 	
