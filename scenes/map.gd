@@ -24,11 +24,29 @@ var request_interval = 3.0
 var time_since_last_request = 0.0
 
 var loaded_buildings = []
+var num_city_buildings = 0
+var healthy_city_buildings = 0
+var num_suburb_buildings = 0
+var healthy_suburb_buildings = 0
+var num_farm_buildings = 0
+var healthy_farm_buildings = 0
+
 
 func spawn_buildings():
 	loaded_buildings = $Buildings.get_children()
 	for building in loaded_buildings:
 		building.map = self
+		match building.area:
+			"city":
+				num_city_buildings += 1
+			"suburb":
+				num_suburb_buildings += 1
+			"farm":
+				num_farm_buildings += 1
+	healthy_city_buildings = num_city_buildings
+	healthy_suburb_buildings = num_suburb_buildings
+	healthy_farm_buildings = num_farm_buildings
+
 	#for building in building_generation:
 		#var new_building = load("res://scenes/building.tscn").instantiate()
 		#new_building.type = building.type
@@ -56,13 +74,7 @@ func enact_request(request_outcome):
 	if request_outcome == "sell_cheese":
 		money += 6000000.0
 		cheese -= 2
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	$EventController.map = self
-	randomize()
-	spawn_buildings()
-	
+		
 func spawn_bubble(area, request):
 	var building
 	while true:
@@ -72,6 +84,50 @@ func spawn_bubble(area, request):
 	
 	building.have_thought(request)
 
+func repair_buildings(type, amount):
+	var buildings_repaired = 0
+	var buildings_sampled = 0
+	while buildings_repaired < amount:
+		buildings_sampled += 1
+		var sample_building = loaded_buildings.pick_random()
+		if buildings_sampled > 100:
+			print("Too many samples")
+			break
+		if sample_building.area != type:
+			continue
+		if sample_building.in_good_form:
+			continue
+		sample_building.repair()
+		buildings_repaired += 1
+
+func damage_buildings(type, amount):
+	var buildings_damaged = 0
+	var buildings_sampled = 0
+	while buildings_damaged < amount:
+		buildings_sampled += 1
+		if buildings_sampled > 100:
+			print("Too many samples")
+			break
+		var sample_building = loaded_buildings.pick_random()
+		print(buildings_sampled)
+		if sample_building.area != type:
+			continue
+		if !sample_building.in_good_form:
+			
+			continue
+	
+		sample_building.damage()
+		buildings_damaged += 1
+		print(buildings_damaged)
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	$EventController.map = self
+	randomize()
+	spawn_buildings()
+	
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	time_till_next_election -= delta
@@ -80,7 +136,21 @@ func _process(delta):
 	$UI/Time.text = "Time: %f" % [time_till_next_election]
 	$UI/Money.text = "%f" % [money]
 	$UI/Cheese.text = "%f" % [cheese]
-
+	
+	city_health -= 20.0 * delta
+	if city_health <= 0.0:
+		city_health = 0.0
+	if city_health >= 100.0:
+		city_health = 100.0
+	var new_healthy_city_buildings = int((city_health / 100.0) * num_city_buildings)
+	var delta_healthy_city_buildings = new_healthy_city_buildings - healthy_city_buildings
+	if delta_healthy_city_buildings > 0:
+		repair_buildings("city", delta_healthy_city_buildings)
+	if delta_healthy_city_buildings < 0:
+		damage_buildings("city", -delta_healthy_city_buildings)
+	healthy_city_buildings = new_healthy_city_buildings
+		
+	
 	time_since_last_request += delta
 	
 	if time_since_last_request > request_interval:

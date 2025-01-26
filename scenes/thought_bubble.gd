@@ -5,6 +5,7 @@ var yes_outcome = "Do Nothing"
 var no_outcome = "Do Nothing"
 var text = "Example"
 var map = null
+var time_remaining = 7.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -33,7 +34,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	time_remaining -= delta
+	
+	if time_remaining < 0:
+		queue_free()
 
 
 func _on_yes_pressed():
