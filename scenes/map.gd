@@ -39,7 +39,7 @@ func enact_request(request_outcome):
 	if request_outcome == "give_farm_money":
 		political_points += 5.0
 		money -= 1000000.0
-		$TheMarket.government_gave_subsidy(1000)
+		#$TheMarket.government_gave_subsidy(1000)
 	if request_outcome == "give_city_money":
 		political_points += 2.0
 		money -= 1000000.0
@@ -47,7 +47,7 @@ func enact_request(request_outcome):
 		political_points += 1.0
 		money -= 2000000.0
 	if request_outcome == "buy_milk":
-		$TheMarket.government_bought_milk(5000)
+		#$TheMarket.government_bought_milk(5000)
 		money -= 5000000.0
 		cheese += 4
 	if request_outcome == "sell_cheese":
