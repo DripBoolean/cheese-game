@@ -7,9 +7,11 @@ var text = "Example"
 var map = null
 var time_remaining = 7.0
 
+var awaiting_sound_timeout = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$AudioStreamPlayer3D.play()
 	$Label.text = request
 	if request == "farm_ask_money":
 		$Label.text = "Subsidise Farms"
@@ -38,13 +40,22 @@ func _process(delta):
 	
 	if time_remaining < 0:
 		queue_free()
+	
 
 
 func _on_yes_pressed():
+	$AudioStreamPlayer3D.stream = load("res://assets/Sounds/Sign_Policy(stamping).wav")
+	$AudioStreamPlayer3D.play(0.0)
 	map.enact_request(yes_outcome)
-	queue_free()
+	awaiting_sound_timeout = true
+	visible = false
 
 
 func _on_no_pressed():
 	map.enact_request(no_outcome)
 	queue_free()
+
+
+func _on_audio_stream_player_3d_finished():
+	if awaiting_sound_timeout:
+		queue_free()
