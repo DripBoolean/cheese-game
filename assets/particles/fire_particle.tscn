@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://b42uvjjbqp4o7"]
+
+[ext_resource type="Material" uid="uid://xh12gkousm42" path="res://assets/particles/fire_mat.tres" id="1_5us2f"]
+[ext_resource type="Material" uid="uid://cbdbfnm54e0km" path="res://assets/particles/smoke_mat.tres" id="2_hokco"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcxya"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_33qml"]
+material = SubResource("StandardMaterial3D_dcxya")
+
+[node name="FireParticle" type="Node3D"]
+
+[node name="fire" type="GPUParticles3D" parent="."]
+amount = 200
+lifetime = 0.5
+randomness = 1.0
+draw_order = 3
+trail_lifetime = 1.11
+process_material = ExtResource("1_5us2f")
+draw_pass_1 = SubResource("QuadMesh_33qml")
+
+[node name="smoke" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91821, 0)
+amount = 200
+randomness = 1.0
+draw_order = 3
+trail_lifetime = 1.11
+process_material = ExtResource("2_hokco")
+draw_pass_1 = SubResource("QuadMesh_33qml")
