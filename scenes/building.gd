@@ -16,6 +16,9 @@ func have_thought(request_name):
 		add_child(new_bubble)
 
 func _ready():
+	if type == "Office":
+		$Tower1.visible = true
+		print("OfficeTime!")
 	pass # Replace with function body.
 
 
