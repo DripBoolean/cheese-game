@@ -74,25 +74,26 @@ func spawn_buildings():
 
 func enact_request(request_outcome):
 	if request_outcome == "give_farm_money":
-		political_points += 5.0
+		political_points += 9.0
 		money -= 400000.0
 		$TheFarmers.government_gave_subsidy(100000)
 	if request_outcome == "give_city_money":
-		political_points += 2.0
+		political_points += 4.0
 		money -= 300000.0
 		city_health += 25.0
 	if request_outcome == "give_suburb_money":
-		political_points += 1.0
+		political_points += 2.0
 		money -= 300000.0
 		suburb_health += 25.0
 	if request_outcome == "buy_milk":
 		$TheFarmers.government_bought_milk(100000)
 		money -= 1000000.0
-		cheese += 4
+		cheese += 1000000.0 / $TheMarket.Current_Price_of_Milk 
 	if request_outcome == "sell_cheese":
-		if cheese >= 2:
+		var amount_of_cheese_to_sell = int(1500000.0 / $TheMarket.Current_Price_of_Milk)
+		if amount_of_cheese_to_sell <= cheese:
 			money += 2000000.0
-			cheese -= 2
+			cheese -= amount_of_cheese_to_sell
 		else:
 			next_news_label_text = "BREAKING NEWS: Mayor Attempts to Sell Cheese He Dosn't Have lmfao"
 			political_points -= 1.0
@@ -171,6 +172,9 @@ func _process(delta):
 	
 	news_label.position.x -= 200.0 * delta
 	
+	if $TheFarmers.Money < -3000000:
+		next_news_label_text = "BREAKING NEWS: Dairy Farmers Accumulate MASSSIVE Debt"
+	
 	if -news_label.position > news_label.size:
 		print("----------------------------------------------------------------")
 		if next_news_label_text == "None":
@@ -179,6 +183,10 @@ func _process(delta):
 		news_label.text = next_news_label_text
 		news_label.position.x = get_viewport().get_visible_rect().size.x
 		next_news_label_text = "None"
+	
+	if money < 0:
+		political_points -= delta
+		money -= 50000 * delta
 		
 	#milk_update_clock_time -= delta
 	#if milk_update_clock_time <= 0:

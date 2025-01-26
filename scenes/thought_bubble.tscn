@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/thought_bubble.gd" id="1_e5ivt"]
 [ext_resource type="Texture2D" uid="uid://c0xaxs5qyqobg" path="res://assets/Sounds/speech_bubble.png" id="2_hosd2"]
-[ext_resource type="AudioStream" uid="uid://b6nqoht8h7hpt" path="res://assets/Sounds/Click_Popup(pop-3).wav" id="3_a8v4p"]
+[ext_resource type="AudioStream" uid="uid://dhpdai8cypqo2" path="res://assets/Sounds/Click_Popup(pop-3).wav" id="3_a8v4p"]
 
 [sub_resource type="Theme" id="Theme_w0dqe"]
 

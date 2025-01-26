@@ -11,6 +11,9 @@ var bubble = null
 
 func damage():
 	in_good_form = false
+	if area == "city":
+		if randf() < 0.05:
+			$FireParticle.visible = true
 	#$FireParticle.visible = true
 	match type:
 		"Office1":
@@ -31,7 +34,7 @@ func damage():
 
 func repair():
 	in_good_form = true
-	#$FireParticle.visible = false
+	$FireParticle.visible = false
 	match type:
 		"Office1":
 			$Tower1.visible = true
