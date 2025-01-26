@@ -245,10 +245,10 @@ func update() -> void:
 				global.The_Farmers.Panic += 75
 			elif r_event == "exodus":
 				map.next_news_label_text = "UNSUPRISING NEWS: EVERYONE IS LEAVING THE CITY"
-				map.tax_income -= 10_000.0
+				map.tax_income -= 20_000.0
 			elif r_event == "enterance":
 				map.next_news_label_text = "SHOCKING NEWS: PEOPLE ARE COMMING INTO THE CITY..?"
-				map.tax_income += 20_000.0
+				map.tax_income += 40_000.0
 		random_event_wait_ticks = 0.0
 	else:
 		random_event_wait_ticks = random_event_wait_ticks - 1.0

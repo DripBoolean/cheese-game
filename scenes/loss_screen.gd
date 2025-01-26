@@ -3,6 +3,7 @@ extends CanvasLayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$main_menu/RichTextLabel2.text = "You Survived %d Terms" % global.terms_survived
 	pass # Replace with function body.
 
 

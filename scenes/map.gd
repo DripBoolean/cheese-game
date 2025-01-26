@@ -17,7 +17,7 @@ var money = 1000000.0
 var political_points = 0.0
 var cheese = 0.0
 var cheese_max = 100.0
-var tax_income = 100000.0
+var tax_income = 200000.0
 var city_health = 100.0
 var suburb_health = 100.0
 var time_till_next_election = 60.0
@@ -31,6 +31,7 @@ var num_suburb_buildings = 0
 var healthy_suburb_buildings = 0
 var num_farm_buildings = 0
 var healthy_farm_buildings = 0
+var terms_survived = 0
 
 var milk_update_clock_time = 2.0
 
@@ -165,9 +166,11 @@ func _process(delta):
 	if time_till_next_election <= 0.0:
 		if political_points < 100.0:
 			get_tree().change_scene_to_file("res://scenes/loss_screen.tscn")
+			global.terms_survived = terms_survived
 		political_points = 0.0
 		time_till_next_election = 60.0
 		$TheFarmers.time_left = time_till_next_election
+		terms_survived += 1
 		next_news_label_text = "BREAKING NEWS: Mayor Relected..... somehow"
 	
 	news_label.position.x -= 200.0 * delta
@@ -186,7 +189,9 @@ func _process(delta):
 	
 	if money < 0:
 		political_points -= delta
-		money -= 50000 * delta
+		if money < -10000000:
+			political_points -= 5 * delta
+		money += money * 0.01 * delta
 		
 	#milk_update_clock_time -= delta
 	#if milk_update_clock_time <= 0:

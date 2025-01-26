@@ -179,7 +179,7 @@ func buy_something(i_am_panicking : bool = false):
 func place_building(building_to_place : PackedScene):
 	var location = possible_placement_locations.pop_at(randi_range(0, len(possible_placement_locations) - 1))
 	
-	if location == null:
+	if location != null:
 		update_placeable_locations(location)
 	else:
 		location = Vector2(0, -300)
