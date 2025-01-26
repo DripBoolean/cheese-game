@@ -2,6 +2,7 @@ extends Node3D
 
 
 var type = "Office"
+var area = "None"
 var in_good_form = true
 var map = null
 var bubble = null

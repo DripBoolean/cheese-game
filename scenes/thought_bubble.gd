@@ -9,7 +9,7 @@ var map = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Label.text = text
+	$Label.text = request
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

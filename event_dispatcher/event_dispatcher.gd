@@ -34,6 +34,7 @@ var demand: float = 0.99
 var panic: float = 0.1
 var mania: bool = false
 var lactose: bool = false
+var map
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -196,15 +197,32 @@ func update() -> void:
 			cAM_range = 0.1
 			sBC_range = 0.9
 			sAM_range = 0.1
-			
+	
+	
 	fAskMoney = randf() < fAM_range + panic
 	fSellCheese = randf() < fSC_range
 	cBuyCheese = randf() < ( cBC_range - (cBC_range * ( 1 - demand) ) )
 	cAskMoney = randf() < cAM_range
 	sBuyCheese = randf() < ( sBC_range - (sBC_range * ( 1 - demand) ) )
 	sAskMoney = randf() < sAM_range
+	
+	if fAskMoney:
+		map.spawn_bubble("farm", "farm_ask_money")
+	if cAskMoney:
+		map.spawn_bubble("city", "city_ask_money")
+	if sAskMoney:
+		map.spawn_bubble("suburb", "suburb_ask_money")
+	if fSellCheese:
+		map.spawn_bubble("farm", "farm_sell_cheese")
+	if cBuyCheese:
+		map.spawn_bubble("city", "city_buy_cheese")
+	if sBuyCheese:
+		map.spawn_bubble("suburb", "suburb_buy_cheese")
+	
 	if verbose:
 		print(cur_state)
 		print(1.0 + int(true))
 		print([fAskMoney,fSellCheese,cBuyCheese,cAskMoney,sBuyCheese,sAskMoney])
 		verbose = false
+	
+	
