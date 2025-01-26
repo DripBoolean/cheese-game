@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://m33ib1biixyx"]
+[gd_scene load_steps=12 format=3 uid="uid://m33ib1biixyx"]
 
 [ext_resource type="Script" path="res://scenes/loss_screen.gd" id="1_c4vd5"]
 [ext_resource type="Texture2D" uid="uid://cpbvjvdtfs2vw" path="res://assets/Cow-irl_Cow-texture.png" id="1_to82w"]
 [ext_resource type="FontFile" uid="uid://cx8175b1rg7m6" path="res://assets/fonts/Vintage.ttf" id="3_mngu5"]
 [ext_resource type="Script" path="res://event_dispatcher/3d_in_2d_menu.gd" id="4_qliod"]
 [ext_resource type="PackedScene" uid="uid://cs3imay4gq6lh" path="res://scenes/simple_cow_2.tscn" id="5_ce2j0"]
+[ext_resource type="AudioStream" uid="uid://djgj70wmwusc7" path="res://assets/Sounds/ChopinFuneralMarch.mp3" id="6_hgvpw"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ou2rk"]
 texture = ExtResource("1_to82w")
@@ -131,5 +132,9 @@ transparent_bg = true
 size = Vector2i(1152, 648)
 
 [node name="simple_cow2" parent="main_menu/stuff/3d_in_2d_menu/SubViewport" instance=ExtResource("5_ce2j0")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="main_menu"]
+stream = ExtResource("6_hgvpw")
+autoplay = true
 
 [connection signal="pressed" from="main_menu/VBoxContainer/start" to="." method="_on_start_pressed"]
