@@ -32,6 +32,12 @@ var healthy_suburb_buildings = 0
 var num_farm_buildings = 0
 var healthy_farm_buildings = 0
 
+var milk_update_clock_time = 2.0
+
+var next_news_label_text = "New Mayor Elected!           Are we Screwed? 💀"
+
+@onready var news_label = $UI/ScrollerBar/NewsLabel
+
 func format_number(n: int) -> String:
 	if n >= 1_000_000:
 		var i:float = snapped(float(n)/1000000, .01)
@@ -70,18 +76,18 @@ func enact_request(request_outcome):
 	if request_outcome == "give_farm_money":
 		political_points += 5.0
 		money -= 1000000.0
-		$TheFarmers.government_gave_subsidy(1000)
+		$TheFarmers.government_gave_subsidy(100000)
 	if request_outcome == "give_city_money":
 		political_points += 2.0
 		money -= 1000000.0
 		city_health += 25.0
 	if request_outcome == "give_suburb_money":
 		political_points += 1.0
-		money -= 2000000.0
+		money -= 1000000.0
 		suburb_health += 25.0
 	if request_outcome == "buy_milk":
-		$TheFarmers.government_bought_milk(5000)
-		money -= 5000000.0
+		$TheFarmers.government_bought_milk(100000)
+		money -= 1000000.0
 		cheese += 4
 	if request_outcome == "sell_cheese":
 		money += 6000000.0
@@ -121,7 +127,6 @@ func damage_buildings(type, amount):
 			print("Too many samples")
 			break
 		var sample_building = loaded_buildings.pick_random()
-		print(buildings_sampled)
 		if sample_building.area != type:
 			continue
 		if !sample_building.in_good_form:
@@ -135,8 +140,11 @@ func damage_buildings(type, amount):
 func _ready():
 	$EventController.map = self
 	randomize()
+	news_label.text = next_news_label_text
+	news_label.position.x = -1000
 	spawn_buildings()
-	
+
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -147,6 +155,31 @@ func _process(delta):
 	$UI/Time.text = "Time: %f" % [time_till_next_election]
 	$UI/Money.text = "%s" % [format_number(money)]
 	$UI/Cheese.text = "%d" % [int(cheese)]
+	
+	if time_till_next_election <= 0.0:
+		if political_points < 100.0:
+			get_tree().change_scene_to_file("res://scenes/loss_screen.tscn")
+		political_points = 0.0
+		time_till_next_election = 60.0
+		next_news_label_text = "Mayor Relected... somehow..."
+	
+	news_label.position.x -= 200.0 * delta
+	
+	if -news_label.position > news_label.size:
+		print("----------------------------------------------------------------")
+		if next_news_label_text == "None":
+			print("Changing to milk price")
+			next_news_label_text = "Price of Milk: $%.2f  Cow Population: %d" % [$TheMarket.Current_Price_of_Milk, $TheFarmers.cows]
+		news_label.text = next_news_label_text
+		news_label.position.x = get_viewport().get_visible_rect().size.x
+		next_news_label_text = "None"
+		
+	#milk_update_clock_time -= delta
+	#if milk_update_clock_time <= 0:
+		#milk_update_clock_time = 20.0
+		#print("changing to milk")
+		#next_news_label_text = "Price of Milk: "
+		
 	
 	money += tax_income * delta * (0.1 + (0.5 * city_health / 100.0) + (0.4 * suburb_health / 100.0))
 	city_health -= 20.0 * delta
