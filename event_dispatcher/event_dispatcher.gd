@@ -26,7 +26,7 @@ var cur_state = null
 var verbose: bool = false
 
 # RANDOM EVENT VARIABLES
-var random_event_wait_ticks: float = 5.0
+var random_event_wait_ticks: float = 0.0
 var event_enum := {"mad":0.0, "lactose":0.0, "mania":0.0, "socialist":0.0, "facebook":0.0,
 "exodus":0.0, "enter":0.0, "crime":0.0}
 
@@ -41,10 +41,10 @@ func _ready() -> void:
 	cur_state = "START"
 
 func _random_events( weight_array ) -> String:
-	
+	print("ejvaiwiehvawiei")
 	var events := ["mad","lactose","mania","socialist","facebook","exodus","enterance","crime"]
 	var random := RandomNumberGenerator.new()
-	if randf() < 0.1:
+	if randf() < 0.25:
 		return events[random.rand_weighted(weight_array)]
 	else:
 		return "null"
@@ -234,17 +234,22 @@ func update() -> void:
 		event_enum = {"mad":0.0, "lactose":0.0, "mania":0.0, "socialist":0.0, 
 		"facebook":0.0, "exodus":0.0, "enter":0.0, "crime":0.0}
 		if r_event != "null":
+			print("-- EVENT: %s" % r_event)
 			#print(r_event)
 			event_enum[r_event] = 0.4
 			if r_event == "crime":
+				map.next_news_label_text = "BREAKING NEWS: UNPRECIDENTED UPTICK IN CRIME"
 				map.city_health -= 25
 			elif r_event == "mad":
+				map.next_news_label_text = "BREAKING NEWS: MAD COW DISEASE INFLICTS FARMS"
 				global.The_Farmers.Panic += 75
 			elif r_event == "exodus":
+				map.next_news_label_text = "UNSUPRISING NEWS: EVERYONE IS LEAVING THE CITY"
 				map.tax_income -= 10_000.0
 			elif r_event == "enterance":
+				map.next_news_label_text = "SHOCKING NEWS: PEOPLE ARE COMMING INTO THE CITY..?"
 				map.tax_income += 20_000.0
-		random_event_wait_ticks = 5.0
+		random_event_wait_ticks = 0.0
 	else:
 		random_event_wait_ticks = random_event_wait_ticks - 1.0
 	# +++++++++++++++++++++++++++++++++++++
